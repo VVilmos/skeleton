@@ -30,6 +30,7 @@ public abstract class Element {
     public void Switch(PipeEnd from, PipeEnd to) {}
     public Pump MakePump() {return new Pump();}
     public PipeEnd MakePipe() {return new PipeEnd();}
-    public Pipe Cut() {return new Pipe();}
+    public Pipe Cut() {return null;}
+
 
 }

@@ -1,10 +1,18 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pipe extends Element{
 
+    private boolean isBroken = false;
     private boolean hasWater = false;
+
+    private List<PipeEnd> ends;
+
+    public Pipe(Node node) {}
+
+    public void Leak() {}
 
     public void Patch() {
     }
@@ -23,8 +31,23 @@ public class Pipe extends Element{
         return true;
     }
 
-    @Override
+
+    public boolean RemoveWater() {
+        if (hasWater) {
+            hasWater = false;
+            return true;
+        }
+        return false;
+    }
+
+    public Pipe Cut() {return null;}
+
+    public List<PipeEnd> GetEnds() {return ends;}
     public List<Element> GetNeighbours() {
-        return null;
+        List<Element> neighbours = new ArrayList<>();
+        for (PipeEnd e : ends) {
+            neighbours.add(e.GetOwnPipe());
+        }
+        return neighbours;
     }
 }
