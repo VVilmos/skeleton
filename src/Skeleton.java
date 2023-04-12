@@ -1,7 +1,3 @@
-public class Skeleton {
-    private int indent = 0;
+public  class Skeleton {
 
-    public void Start() {}
-
-    public void End() {}
 }

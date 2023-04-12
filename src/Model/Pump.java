@@ -1,4 +1,8 @@
 package Model;
 
-public class Pump {
+public class Pump extends Node{
+    @Override
+    public void step() {
+
+    }
 }

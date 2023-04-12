@@ -1,4 +1,4 @@
 package Model;
 
-public class Saboteur {
+public class Saboteur extends Player{
 }

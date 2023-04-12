@@ -1,6 +1,10 @@
 package Model;
 
-public class Cistern {
+public class Cistern extends Node {
 
-    
+
+    @Override
+    public void step() {
+
+    }
 }
