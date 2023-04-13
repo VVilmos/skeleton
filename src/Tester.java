@@ -5,6 +5,7 @@ import java.util.List;
 public class Tester {
 
     public static void LeakingPipeRepair() {
+        Skeleton.ClearMap();
         //init a komm diagram alapján
         Skeleton.LogOff();
         Pump pu = new Pump();

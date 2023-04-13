@@ -39,5 +39,8 @@ public  class Skeleton {
 
     public static String GetObjectName(Object o) { return hm.get(o);}
 
+    public static void ClearMap() {
+        hm.clear();
+    }
 
 }
