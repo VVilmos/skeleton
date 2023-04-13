@@ -6,7 +6,11 @@ import java.util.List;
 public class Mechanic extends Player{
 
     private List<Pump> holdingPumps = new ArrayList<>();
-    void RepairPipe() {on.Patch();}
+    public void RepairPipe() {
+        Skeleton.Start(this, "RepairPipe()");
+        on.Patch();
+        Skeleton.End();
+    }
 
     public void RepairPump() {}
 

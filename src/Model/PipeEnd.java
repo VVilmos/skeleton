@@ -10,6 +10,10 @@ public class PipeEnd {
      * Ha a csőnek ez a vége szabad, akkor a mező értéke null
      */
     private Node node;
+
+    public PipeEnd(Pipe p) {
+        this.pipe = p;
+    }
     public Element GetOwnPipe() {
         return pipe;
     }
@@ -19,7 +23,18 @@ public class PipeEnd {
     }
 
     public boolean RemoveWater() {
-       return pipe.RemoveWater();
+        Skeleton.Start(this, "RemoveWater()");
+        boolean accepted = pipe.RemoveWater();
+        Skeleton.End();
+        if (accepted) Skeleton.PrintReturn("true");
+        else Skeleton.PrintReturn("false");
+       return accepted;
     }
 
+    public void ConnectNode(Node node) {
+        Skeleton.Start(this, "ConnectNode(" + Skeleton.GetObjectName(node) + ")");
+        boolean accepted = node.AddPipe(this);
+        Skeleton.End();
+        if (accepted) this.node = node;
+    }
 }

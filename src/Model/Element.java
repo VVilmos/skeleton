@@ -29,7 +29,7 @@ public abstract class Element {
     public void Leak() {}
     public void Switch(PipeEnd from, PipeEnd to) {}
     public Pump MakePump() {return new Pump();}
-    public PipeEnd MakePipe() {return new PipeEnd();}
+    public PipeEnd MakePipe() {return null;}
     public Pipe Cut() {return null;}
 
 
