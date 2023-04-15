@@ -40,6 +40,9 @@ public abstract class Node extends Element implements ISteppable{
             int i = 0;
             while (pipeEnds[i] != null) {i++;}
             pipeEnds[i] = pe;
+
+            pe.ConnectNode(this);
+
             Skeleton.End();
             Skeleton.PrintReturn("true");
             return true;

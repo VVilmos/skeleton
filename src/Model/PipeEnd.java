@@ -37,4 +37,8 @@ public class PipeEnd {
         Skeleton.End();
         if (accepted) this.node = node;
     }
+
+    public Node getNode(){
+        return node;
+    }
 }

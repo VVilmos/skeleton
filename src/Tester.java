@@ -13,7 +13,7 @@ public class Tester {
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
         pip.Leak();
-        Mechanic m = new Mechanic();
+        Mechanic m = new Mechanic(pu); //meg kell adni, hol all
         Skeleton.AddObject(m, "m");
         m.Move(pip);
         pip.AcceptPlayer(m);
