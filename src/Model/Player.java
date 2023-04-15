@@ -11,8 +11,8 @@ public class Player {
     protected PipeEnd holdingPipeEnd;
 
 
-    public Player(){
-
+    public Player(Element on){
+        this.on = on;
     }
     public void Move(Element to) { //miért boolean a visszatérés?
         Skeleton.Start(this, "Move(" + Skeleton.GetObjectName(to) + ")");

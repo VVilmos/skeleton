@@ -19,6 +19,7 @@ public class Main {
             int no = scanner.nextInt();
 
             if (no == 1) Tester.LeakingPipeRepair();
+            if (no == 10) Tester.GetPumpAtCistern();
 
             System.out.print("\nDo you want to try another test case [y/n]? ");
             char ans = scanner.next().charAt(0);

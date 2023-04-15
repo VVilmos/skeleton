@@ -7,8 +7,8 @@ public class Mechanic extends Player{
 
     private List<Pump> holdingPumps = new ArrayList<>();
 
-    public Mechanic(){
-        super();
+    public Mechanic(Element on){
+        super(on);
     }
 
     public void RepairPump() {

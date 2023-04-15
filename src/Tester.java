@@ -13,7 +13,7 @@ public class Tester {
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
         pip.Leak();
-        Mechanic m = new Mechanic();
+        Mechanic m = new Mechanic(pip);
         Skeleton.AddObject(m, "m");
         m.Move(pip);
         pip.AcceptPlayer(m);
@@ -38,12 +38,12 @@ public class Tester {
     public static void GetPumpAtCistern() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
-        Mechanic m = new Mechanic();
-        Skeleton.AddObject(m, "m");
         Cistern c = new Cistern();
         Skeleton.AddObject(c, "c");
         Pipe pi = new Pipe(c);
         Skeleton.AddObject(pi, "pi");
+        Mechanic m = new Mechanic(pi);
+        Skeleton.AddObject(m, "m");
         pi.AcceptPlayer(m);
 
         System.out.println("\nThe test will run on the following objects:");

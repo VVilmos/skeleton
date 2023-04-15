@@ -1,7 +1,7 @@
 package Model;
 
 public class Saboteur extends Player{
-    public Saboteur(){
-        super();
+    public Saboteur(Element on){
+        super(on);
     }
 }
