@@ -36,7 +36,25 @@ public class Tester {
 
     //10
     public static void GetPumpAtCistern() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        Cistern c = new Cistern();
+        Skeleton.AddObject(c, "c");
+        Pipe pi = new Pipe(c);
+        Skeleton.AddObject(pi, "pi");
+        pi.AcceptPlayer(m);
 
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("m: Mechanic standing on Pipe pip \n" +
+                "c: Cistern that Mechanic m will step on \n" +
+                "pi: Pipe which is connected to Cistern c");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        m.Move(c);
+        m.PickupPump();
     }
 
 

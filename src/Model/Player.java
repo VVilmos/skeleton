@@ -34,9 +34,13 @@ public class Player {
         Skeleton.End();
     }
     public void SwitchPump(PipeEnd from, PipeEnd to){
+        Skeleton.Start(this, "SwitchPump(" + Skeleton.GetObjectName(from)
+                + "," + Skeleton.GetObjectName(to) + ")");
         on.Switch(from, to);
+        Skeleton.End();
     }
     public void ConnectPipe() {
+        Skeleton.Start(this, "ConnectPipe()");
         boolean accepted;
         if(holdingPipeEnd != null){
             accepted = on.AddPipe(holdingPipeEnd);
@@ -44,9 +48,12 @@ public class Player {
                 holdingPipeEnd = null;
             }
         }
+        Skeleton.End();
     }
 
     public void DisconnectPipe(PipeEnd p){
+        Skeleton.Start(this, "DisconnectPipe()");
         on.RemovePipe(p);
+        Skeleton.End();
     }
 }

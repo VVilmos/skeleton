@@ -12,10 +12,13 @@ public class Mechanic extends Player{
     }
 
     public void RepairPump() {
+        Skeleton.Start(this, "RepairPump()");
         on.Repair();
+        Skeleton.End();
     }
 
     public void PlacePump() {
+        Skeleton.Start(this, "PlacePump()");
         if(holdingPumps.size() > 0){
             List<Node> neighbours = new ArrayList<>(); //on szomszedos Node-jai
             neighbours.add(on.GetEnds().get(0).getNode());
@@ -37,14 +40,19 @@ public class Mechanic extends Player{
                 neighbours.get(1).AddPipe(newEnds.get(1));
             }
         }
+        Skeleton.End();
     }
     public void PickupPump() {
+        Skeleton.Start(this, "PickUpPump()");
         Pump p = on.MakePump();
         holdingPumps.add(p);
+        Skeleton.End();
     }
     public void PickupPipe() {
+        Skeleton.Start(this, "PickUpPipe()");
         PipeEnd p = on.MakePipe();
         holdingPipeEnd = p;
+        Skeleton.End();
     }
     public void RepairPipe() {
         Skeleton.Start(this, "RepairPipe()");
