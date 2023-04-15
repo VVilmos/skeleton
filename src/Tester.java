@@ -13,7 +13,7 @@ public class Tester {
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
         pip.Leak();
-        Mechanic m = new Mechanic(pip);
+        Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
         pip.AcceptPlayer(m);
@@ -34,7 +34,46 @@ public class Tester {
 
     }
 
-    //10
+    //12
+    public static void SecondStepOnPump(){
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Mechanic m1 = new Mechanic();
+        Skeleton.AddObject(m1, "m1");
+        Mechanic m2 = new Mechanic();
+        Skeleton.AddObject(m2, "m2");
+        Pump pu = new Pump();
+        Skeleton.AddObject(pu, "pu");
+        Pipe pi = new Pipe(pu);
+        Skeleton.AddObject(pi, "pi");
+        boolean accepted = pi.AcceptPlayer(m1);
+        if(accepted){
+            Skeleton.PrintReturn("true");
+        }
+        else{
+            Skeleton.PrintReturn("false");
+        }
+        accepted = pu.AcceptPlayer(m2);
+        if(accepted){
+            Skeleton.PrintReturn("true");
+        }
+        else{
+            Skeleton.PrintReturn("false");
+        };
+
+        System.out.println("Second person tries to step on Pump");
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("m1: Mechanic standing on Pipe pi \n" +
+                "m2: Mechanic standing on Pump pu\n" +
+                "pu: Pump that Mechanic m1 will step on \n" +
+                "pi: Pipe which is connected to Pump pu");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        m2.Move(pu);
+    }
+
+    //13
     public static void GetPumpAtCistern() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -42,12 +81,13 @@ public class Tester {
         Skeleton.AddObject(c, "c");
         Pipe pi = new Pipe(c);
         Skeleton.AddObject(pi, "pi");
-        Mechanic m = new Mechanic(pi);
+        Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         pi.AcceptPlayer(m);
 
+        System.out.println("Tester steps on Cistern and picks up Pump");
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("m: Mechanic standing on Pipe pip \n" +
+        System.out.println("m: Mechanic standing on Pipe pi \n" +
                 "c: Cistern that Mechanic m will step on \n" +
                 "pi: Pipe which is connected to Cistern c");
 
@@ -56,6 +96,12 @@ public class Tester {
         m.Move(c);
         m.PickupPump();
     }
+
+    //14
+    //public static void
+
+
+
 
 
 }

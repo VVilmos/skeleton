@@ -14,7 +14,7 @@ public abstract class Node extends Element implements ISteppable{
 
     @Override
     public boolean AcceptPlayer(Player p) {
-        Skeleton.Start(this, "AcceptPlayer( " + Skeleton.GetObjectName(p) + ")");
+        Skeleton.Start(this, "AcceptPlayer(" + Skeleton.GetObjectName(p) + ")");
         players.add(p);
 
         Skeleton.End();
