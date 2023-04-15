@@ -14,6 +14,7 @@ public class Main {
             System.out.println("1: Repairing a leaking pipe and testing it afterwards");
             System.out.println("12: Second person tries to step on Pump");
             System.out.println("13: Tester steps on Cistern and picks up Pump");
+            System.out.println("14: Pump breaks with full Tank and steps two times");
             System.out.println("X: Exit\n");
             System.out.print("Enter your choice: ");
 
@@ -23,6 +24,7 @@ public class Main {
             if (no == 1) Tester.LeakingPipeRepair();
             if (no == 12) Tester.SecondStepOnPump();
             if (no == 13) Tester.GetPumpAtCistern();
+            if (no == 14) Tester.BreakPumpAndTwoStep();
 
             System.out.print("\nDo you want to try another test case [y/n]? ");
             char ans = scanner.next().charAt(0);
