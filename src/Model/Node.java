@@ -36,7 +36,7 @@ public abstract class Node extends Element implements ISteppable{
 
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.length <= 8) {
+        if (pipeEnds.length <= 8) { //😎
             int i = 0;
             while (pipeEnds[i] != null) {i++;}
             pipeEnds[i] = pe;

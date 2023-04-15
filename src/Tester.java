@@ -13,7 +13,7 @@ public class Tester {
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
         pip.Leak();
-        Mechanic m = new Mechanic(pu); //meg kell adni, hol all
+        Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
         pip.AcceptPlayer(m);
@@ -31,6 +31,11 @@ public class Tester {
         m.RepairPipe();
         pip.AcceptWater();
         pu.Step();
+
+    }
+
+    //10
+    public static void GetPumpAtCistern() {
 
     }
 
