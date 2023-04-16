@@ -12,7 +12,7 @@ public abstract class Node extends Element implements ISteppable{
     /**
      * fix hosszúságú csővégekből álló tömb, az aktív elemhez csatlakoztatott csővégeket jelöli
      */
-    protected PipeEnd[] pipeEnds = {null, null, null, null, null, null, null, null};
+    protected List<PipeEnd> pipeEnds = new ArrayList<PipeEnd>();
 
     /**
      * Az aktív elemre egy karakter próbál lépni
@@ -38,9 +38,9 @@ public abstract class Node extends Element implements ISteppable{
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
-        for (int i = 0; i < pipeEnds.length; i++){
-            if (pipeEnds[i] != null) {
-                neighbours.add(pipeEnds[i].GetOwnPipe());
+        for (int i = 0; i < pipeEnds.size(); i++){
+            if (pipeEnds.get(i) != null) {
+                neighbours.add(pipeEnds.get(i).GetOwnPipe());
             }
         }
         Skeleton.End();
@@ -55,11 +55,8 @@ public abstract class Node extends Element implements ISteppable{
      */
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.length <= 8) { //😎
-            int i = 0;
-            while (pipeEnds[i] != null) {i++;}
-            pipeEnds[i] = pe;
-
+        if (pipeEnds.size() <= 8) { //😎
+            pipeEnds.add(pe);
             pe.ConnectNode(this);
 
             Skeleton.End();
@@ -79,9 +76,8 @@ public abstract class Node extends Element implements ISteppable{
      */
     public void RemovePipe(PipeEnd pe) {
         Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
-        int i = 0;
-        while (!pipeEnds[i].equals(pe)){i++;}
-        pipeEnds[i] = null;
+        pipeEnds.remove(pe);
+        pe.DisconnectFromNode();
         Skeleton.End();
     }
 
@@ -89,12 +85,10 @@ public abstract class Node extends Element implements ISteppable{
      * Getter, mely visszaadja az aktív elemhez csatlakozatott csöveg bekötött végeit
      * @return a bekötött csővégek listája
      */
-    public PipeEnd[] GetPipeEnds() {
+    public List<PipeEnd> GetPipeEnds() {
         Skeleton.Start(this, "GetPipeEnds()");
         Skeleton.End();
         Skeleton.PrintReturn("pipeEnds");
         return pipeEnds;
     }
-
-
 }

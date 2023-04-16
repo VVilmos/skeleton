@@ -1,24 +1,37 @@
 package Model;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+/**
+ * Egy absztrakt játékos.
+ * A szabotőr és a szerelő közös viselkedését valósítja meg.
+ */
+public abstract class Player {
+    /**
+     * Az elem, amin a játékos éppen áll.
+     */
     protected Element on = null;
+
+    /**
+     * A cső, amit a játékos éppen fog.
+     */
     protected PipeEnd holdingPipeEnd;
 
-   
-
-    public void SetHoldingPipeEnd(PipeEnd pE){
-        Skeleton.Start(this, "SetHoldingPipeEnd(" + Skeleton.GetObjectName(pE) + ")");
-        this.holdingPipeEnd = pE;
+    /**
+     * Beállítja az éppen fogott csövet.
+     * @param pe csővég, amit fogni szeretne.
+     */
+    public void SetHoldingPipeEnd(PipeEnd pe){
+        Skeleton.Start(this, "SetHoldingPipeEnd(" + Skeleton.GetObjectName(pe) + ")");
+        this.holdingPipeEnd = pe;
         Skeleton.End();
     }
-   
-    public Player(){    }
 
+    /**
+     * Rálép a megadott elemre, ha szomszédos.
+     * @param to az elem, amire lépni szeretne.
+     */
     public void Move(Element to){
         Skeleton.Start(this, "Move(" + Skeleton.GetObjectName(to) + ")");
         if(on == null){
@@ -44,12 +57,22 @@ public class Player {
         }
         Skeleton.End();
     }
+
+    /**
+     * Átállítja a pumpát.
+     * @param from honnan.
+     * @param to hova.
+     */
     public void SwitchPump(PipeEnd from, PipeEnd to){
         Skeleton.Start(this, "SwitchPump(" + Skeleton.GetObjectName(from)
                 + "," + Skeleton.GetObjectName(to) + ")");
         on.Switch(from, to);
         Skeleton.End();
     }
+
+    /**
+     * Hozzákapcsolja az éppen fogott csövet az elemhez, amin áll.
+     */
     public void ConnectPipe() {
         Skeleton.Start(this, "ConnectPipe()");
         boolean accepted;
@@ -62,11 +85,14 @@ public class Player {
         Skeleton.End();
     }
 
+    /**
+     * Lekapcsolja a csövet.
+     * @param p a lekapcsolandó cső.
+     */
     public void DisconnectPipe(PipeEnd p){
-        Skeleton.Start(this, "DisconnectPipe()");
+        Skeleton.Start(this, "DisconnectPipe(" + Skeleton.GetObjectName(p) + ")");
         on.RemovePipe(p);
-
-      holdingPipeEnd = p;
+        holdingPipeEnd = p;
         Skeleton.End();
     }
 }

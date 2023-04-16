@@ -13,7 +13,7 @@ public class Cistern extends Node {
      * Ha kap vizet az egyik csőből, akkor megnöveli a játékban játszó szerelők csapatának összesen szerzett vízmennyiségét
      */
     @Override
-    public void Step() {  //pontadas?
+    public void Step() {
         Skeleton.Start(this, "Step()");
         for (PipeEnd pe : pipeEnds)  {
             if (pe != null) {
@@ -31,11 +31,16 @@ public class Cistern extends Node {
      */
     public PipeEnd MakePipe() {
         Skeleton.Start(this, "MakePipe()");
-        Pipe newpip = new Pipe(this);  //ezt nem kene hozzaadni a hashMap-hez?
-        Skeleton.AddObject(newpip, "newpip");
-        List<PipeEnd> ends = newpip.GetEnds();
+
+        Pipe newPipe = new Pipe(this);
+        Skeleton.AddObject(newPipe, "newPipe");
+
+        List<PipeEnd> ends = newPipe.GetEnds();
+        Skeleton.AddObject(ends.get(0), "newEnd1");
+        Skeleton.AddObject(ends.get(1), "newEnd2");
+
         Skeleton.End();
-        Skeleton.PrintReturn("end2");
+        Skeleton.PrintReturn("newEnd2");
         return ends.get(1);
     }
 
@@ -44,9 +49,12 @@ public class Cistern extends Node {
      * @return az új pumpa
      */
     public Pump MakePump() {
-        Skeleton.Start(this, "MakePump");
-        Skeleton.End();
+        Skeleton.Start(this, "MakePump()");
+
         Pump newPump = new Pump();
+        Skeleton.AddObject(newPump, "newPump");
+
+        Skeleton.End();
         Skeleton.PrintReturn("newPump");
         return newPump;
     }

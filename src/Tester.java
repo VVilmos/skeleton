@@ -170,8 +170,6 @@ public class Tester {
         m.ConnectPipe();
     }
 
-
-
     public static void StepOnCisternAndPicksUpPipe(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
