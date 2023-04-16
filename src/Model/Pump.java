@@ -44,12 +44,12 @@ public class Pump extends Node{
     @Override
     public void Step() {
         Skeleton.Start(this, "Step()");
-        if (tankFull) {
-            boolean accepted = pipeEnds.get(outPipe).AcceptWater();
+        if (tankFull && pipeEnds[outPipe] != null) {
+            boolean accepted = pipeEnds[outPipe].AcceptWater();
             if (accepted) tankFull = false;
         }
-        if (!isBroken&!tankFull) {
-            boolean arrived = pipeEnds.get(inPipe).RemoveWater();
+        if (!isBroken && !tankFull && pipeEnds[inPipe] != null) {
+            boolean arrived = pipeEnds[inPipe].RemoveWater();
             if (arrived) tankFull = true;
         }
         Skeleton.End();
@@ -62,9 +62,9 @@ public class Pump extends Node{
      */
     public void Switch(PipeEnd from, PipeEnd to) {
         Skeleton.Start(this, "Switch(" + Skeleton.GetObjectName(from) + "," + Skeleton.GetObjectName(to) + ")");
-        for (int i = 0; i < pipeEnds.size(); i++) {
-            if (pipeEnds.get(i) != null && pipeEnds.get(i).equals(from)) inPipe = i;
-            if (pipeEnds.get(i) != null && pipeEnds.get(i).equals(to)) outPipe = i;
+        for (int i = 0; i < pipeEnds.length; i++) {
+            if (pipeEnds[i] != null && pipeEnds[i].equals(from)) inPipe = i;
+            if (pipeEnds[i] != null && pipeEnds[i].equals(to)) outPipe = i;
         }
         Skeleton.End();
     }

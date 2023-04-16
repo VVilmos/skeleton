@@ -40,17 +40,20 @@ public class Pipe extends Element{
     public Pipe(Node node) {
         count++;
 
-        Skeleton.AddObject(this, "newPipe");
-
+        // Skeleton.CtorStart("PipeEnd(" + Skeleton.GetObjectName(this) + ") end" + count + "1");
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "1");
         PipeEnd end1 = new PipeEnd(this);
+        Skeleton.End();
+
         Skeleton.AddObject(end1, "end" + count + "1");
         node.AddPipe(end1);
 
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "2");
         PipeEnd end2 = new PipeEnd(this);
         Skeleton.AddObject(end2, "end" + count + "2");
-
         ends.add(end1);
         ends.add(end2);
+        Skeleton.End();
     }
 
     /**
@@ -142,10 +145,13 @@ public class Pipe extends Element{
         Skeleton.Start(this, "Cut()");
         Node node = ends.get(1).GetAttachedNode();
         node.RemovePipe(ends.get(1));
-        Pipe newPipe = new Pipe(node);
+
+        Skeleton.CtorStart("Pipe(" + Skeleton.GetObjectName(node) + ") newpip");
+        Pipe newpip = new Pipe(node);
         Skeleton.End();
-        Skeleton.PrintReturn("newPipe");
-        return newPipe;
+        Skeleton.End();
+        Skeleton.PrintReturn("newpip");
+        return newpip;
     }
 
     /**

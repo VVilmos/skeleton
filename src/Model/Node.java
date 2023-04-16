@@ -12,7 +12,7 @@ public abstract class Node extends Element implements ISteppable{
     /**
      * fix hosszúságú csővégekből álló tömb, az aktív elemhez csatlakoztatott csővégeket jelöli
      */
-    protected List<PipeEnd> pipeEnds = new ArrayList<PipeEnd>();
+    protected PipeEnd[] pipeEnds = {null, null, null, null, null, null, null, null};
 
     /**
      * Az aktív elemre egy karakter próbál lépni
@@ -38,9 +38,9 @@ public abstract class Node extends Element implements ISteppable{
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
-        for (int i = 0; i < pipeEnds.size(); i++){
-            if (pipeEnds.get(i) != null) {
-                neighbours.add(pipeEnds.get(i).GetOwnPipe());
+        for (int i = 0; i < pipeEnds.length; i++){
+            if (pipeEnds[i] != null) {
+                neighbours.add(pipeEnds[i].GetOwnPipe());
             }
         }
         Skeleton.End();
@@ -55,10 +55,12 @@ public abstract class Node extends Element implements ISteppable{
      */
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.size() <= 8) { //😎
-            pipeEnds.add(pe);
-            pe.ConnectNode(this);
+        int i = 0;
+        while (i < 8 && pipeEnds[i] != null) {i++;}
 
+        if(i < 8) {
+            pipeEnds[i] = pe;
+            pe.ConnectNode(this);
             Skeleton.End();
             Skeleton.PrintReturn("true");
             return true;
@@ -76,8 +78,10 @@ public abstract class Node extends Element implements ISteppable{
      */
     public void RemovePipe(PipeEnd pe) {
         Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
-        pipeEnds.remove(pe);
-        pe.DisconnectFromNode();
+        int i = 0;
+        while (!pipeEnds[i].equals(pe)){i++;}
+        pipeEnds[i].DisconnectFromNode();
+        pipeEnds[i] = null;
         Skeleton.End();
     }
 
@@ -85,7 +89,7 @@ public abstract class Node extends Element implements ISteppable{
      * Getter, mely visszaadja az aktív elemhez csatlakozatott csöveg bekötött végeit
      * @return a bekötött csővégek listája
      */
-    public List<PipeEnd> GetPipeEnds() {
+    public PipeEnd[] GetPipeEnds() {
         Skeleton.Start(this, "GetPipeEnds()");
         Skeleton.End();
         Skeleton.PrintReturn("pipeEnds");

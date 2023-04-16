@@ -33,6 +33,7 @@ public class Tester {
         Skeleton.ClearMap();
         //init a komm diagram alapján
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Pump pu = new Pump();
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
@@ -61,6 +62,7 @@ public class Tester {
     public static void SteppingToAndSwitchPump() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Pump pu = new Pump();
         Skeleton.AddObject(pu, "pu");
         pu.FillWaterTank();
@@ -93,6 +95,7 @@ public class Tester {
     public static void DisconnectingFullPipe() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
 
         Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
 
@@ -146,6 +149,7 @@ public class Tester {
     public static void PlayerSteps2() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Pump to1 = new Pump();
         Skeleton.AddObject(to1, "to1");
         Pipe on1 = new Pipe(to1);
@@ -172,6 +176,7 @@ public class Tester {
     public static void ConnectPipeToPump(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Pump pu = new Pump();
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
@@ -221,6 +226,7 @@ public class Tester {
     public static void BreakPipeAndItAcceptsWater(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
         Pump p1 = new Pump();
         Skeleton.AddObject(p1, "p1");
@@ -250,6 +256,7 @@ public class Tester {
     public static void SecondStepOnPump() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Mechanic m1 = new Mechanic();
         Skeleton.AddObject(m1, "m1");
         Mechanic m2 = new Mechanic();
@@ -276,6 +283,7 @@ public class Tester {
     public static void GetPumpAtCistern() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Cistern c = new Cistern();
         Skeleton.AddObject(c, "c");
         Pipe pi = new Pipe(c);
@@ -299,6 +307,7 @@ public class Tester {
     public static void BreakPumpAndTwoStep(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Pump pu = new Pump();
         Skeleton.AddObject(pu, "pu");
         Pipe pi = new Pipe(pu);
@@ -323,6 +332,7 @@ public class Tester {
     public static void ClogPipeNetwork() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
 
         Pump pump = new Pump();
         Skeleton.AddObject(pump, "pump");
@@ -371,6 +381,7 @@ public class Tester {
     private static void initPumpWithTwoPipes() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
 
         pump = new Pump();
         Skeleton.AddObject(pump, "pump");
@@ -398,6 +409,7 @@ public class Tester {
      */
     public static void WorkingPumpPumps() {
         initPumpWithTwoPipes();
+        Pipe.ResetCounter();
 
         pe1.AcceptWater();
 
@@ -419,6 +431,7 @@ public class Tester {
      */
     public static void StepPumpTwiceAfterRepair() {
         initPumpWithTwoPipes();
+        Pipe.ResetCounter();
         pump.BreakPump();
         p1.AcceptWater();
         System.out.println("Pump steps twice after repair");
@@ -440,6 +453,7 @@ public class Tester {
     public static void DisconnectEmptyPipeFromPump() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
 
         pump = new Pump();
         Skeleton.AddObject(pump, "pump");
@@ -465,8 +479,192 @@ public class Tester {
         Skeleton.LogOn();
         m.DisconnectPipe(pe);
         pe.RemoveWater();
-
     }
 
+    /**
+     * Ez a teszt egy pumpa felvételét és lerakását mutatja be.
+     */
+    public static void PlacePump() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pipe.ResetCounter();
+
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+
+        Cistern c = new Cistern();
+        Skeleton.AddObject(c, "c");
+
+        Pump pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
+
+        Pipe pipe = new Pipe(c);
+        Skeleton.AddObject(pipe, "pipe");
+        List<PipeEnd> ends = pipe.GetEnds();
+        Skeleton.AddObject(ends.get(0), "end1");
+        Skeleton.AddObject(ends.get(1), "end2");
+
+        ends.get(1).ConnectNode(pump);
+        m.Move(c);
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println(
+                "c:Cistern \n" +
+                        "m:Mechanic standing on cistern \n" +
+                        "pump: Pump \n" +
+                        "pipe: Pipe connecting pump and cistern \n" +
+                        "end1/end2: the ends of pipe \n" +
+                        "newPump: the placed pump \n" +
+                        "newpip: the created pipe \n" +
+                        "end21/end22: the ends of newPipe");
+
+        //Tester függvényhívásai
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+
+        m.PickupPump();
+        m.Move(pipe);
+        m.PlacePump();
+    }
+
+    /**
+     * Egy második játékos megpróbál rálépni egy csőre, ahol már áll egy játékos.
+     */
+    public static void SecondPersonSteps() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pipe.ResetCounter();
+
+        Mechanic p1 = new Mechanic();
+        Skeleton.AddObject(p1, "p1");
+
+        Mechanic p2 = new Mechanic();
+        Skeleton.AddObject(p2, "p2");
+
+        Pump pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
+
+        Pipe pipe = new Pipe(pump);
+        Skeleton.AddObject(pipe, "pipe");
+        List<PipeEnd> ends = pipe.GetEnds();
+        Skeleton.AddObject(ends.get(0), "end1");
+        Skeleton.AddObject(ends.get(1), "end2");
+
+        p1.Move(pump);
+        p2.Move(pipe);
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println(
+                        "pump: Pump\n" +
+                        "p1:Mechanic standing on pump \n" +
+                        "p2:Mechanic standing on pipe \n" +
+                        "pipe: Pipe connecting to pump \n" +
+                        "end1/end2: the ends of pipe \n");
+
+        //Tester függvényhívásai
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+
+        List<Element> ne = pump.GetNeighbours();
+        p1.Move(ne.get(0));
+    }
+
+    /**
+     * Teszt a forrás léptetésére, az egyik cső üres, a másik tele van.
+     */
+    public static void SourceSteps() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pipe.ResetCounter();
+
+        Source s = new Source();
+        Skeleton.AddObject(s, "s");
+
+        Pipe p1 = new Pipe(s);
+        Skeleton.AddObject(p1, "p1");
+        List<PipeEnd> p1Ends = p1.GetEnds();
+        Skeleton.AddObject(p1Ends.get(0), "p1e1");
+        Skeleton.AddObject(p1Ends.get(1), "p1e2");
+
+        Pipe p2 = new Pipe(s);
+        Skeleton.AddObject(p2, "p2");
+        List<PipeEnd> p2Ends = p2.GetEnds();
+        Skeleton.AddObject(p2Ends.get(0), "p2e1");
+        Skeleton.AddObject(p2Ends.get(1), "p2e2");
+
+        p2.AcceptWater();
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println(
+                        "s: Source\n" +
+                        "p1: Pipe connected to Source\n" +
+                        "p2: Pipe connected to Source with water\n" +
+                        "p1e1/p1e2: ends of p1\n" +
+                        "p2e1/p2e2: ends of p2");
+
+        //Tester függvényhívásai
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+
+        s.Step();
+    }
+
+    /**
+     * Szerelő lecsatlakoztat egy csövet a pumpáról.
+     */
+    public static void DisconnectOutPipeFromPump() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pipe.ResetCounter();
+
+        Pump pump1 = new Pump();
+        Skeleton.AddObject(pump1, "pump1");
+
+        Pump pump2 = new Pump();
+        Skeleton.AddObject(pump2, "pump2");
+
+        Pipe p1 = new Pipe(pump1);
+        Skeleton.AddObject(p1, "p1");
+        List<PipeEnd> p1Ends = p1.GetEnds();
+        Skeleton.AddObject(p1Ends.get(0), "p1e1");
+        Skeleton.AddObject(p1Ends.get(1), "p1e2");
+        p1Ends.get(1).ConnectNode(pump2);
+
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+
+        Pipe p2 = new Pipe(pump1);
+        Skeleton.AddObject(p2, "p2");
+        List<PipeEnd> p2Ends = p2.GetEnds();
+        Skeleton.AddObject(p2Ends.get(0), "p2e1");
+        Skeleton.AddObject(p2Ends.get(1), "p2e2");
+
+        m.Move(pump1);
+        p2.AcceptWater();
+        pump1.Switch(p2Ends.get(0), p1Ends.get(0));
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println(
+                        "pump1:First pump \n" +
+                        "pump2:Second pump \n" +
+                        "p1: Pipe connecting pump1 and pump2 \n" +
+                        "p1e1/p1e2: the ends of p1 \n" +
+                        "m: Mechanic standing on pump1\n" +
+                        "p2: Pipe connected to pump1, full of water\n" +
+                        "p2e1/p2e2: ends of p2");
+
+        //Tester függvényhívásai
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+
+        PipeEnd[] ends = pump1.GetPipeEnds();
+        m.DisconnectPipe(ends[0]);
+        pump1.Step();
+        pump2.Step();
+    }
 }
 

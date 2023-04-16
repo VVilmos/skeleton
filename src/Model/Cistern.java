@@ -40,12 +40,11 @@ public class Cistern extends Node {
     public PipeEnd MakePipe() {
         Skeleton.Start(this, "MakePipe()");
 
-        Pipe newPipe = new Pipe(this);
-        Skeleton.AddObject(newPipe, "newPipe");
-
-        List<PipeEnd> ends = newPipe.GetEnds();
-        Skeleton.AddObject(ends.get(0), "newEnd1");
-        Skeleton.AddObject(ends.get(1), "newEnd2");
+        Skeleton.CtorStart("Pipe(" + Skeleton.GetObjectName(this) + ") newpip");
+        Pipe newpip = new Pipe(this);
+        Skeleton.End();
+        Skeleton.AddObject(newpip, "newpip");
+        List<PipeEnd> ends = newpip.GetEnds();
 
         Skeleton.End();
         Skeleton.PrintReturn(Skeleton.GetObjectName(ends.get(1)));
@@ -59,8 +58,10 @@ public class Cistern extends Node {
     public Pump MakePump() {
         Skeleton.Start(this, "MakePump()");
 
+        Skeleton.CtorStart("Pump() newPump");
         Pump newPump = new Pump();
         Skeleton.AddObject(newPump, "newPump");
+        Skeleton.End();
 
         Skeleton.End();
         Skeleton.PrintReturn("newPump");

@@ -10,6 +10,9 @@ public class Main {
             System.out.println("2: Stepping to a pump, then switching and steping it");
             System.out.println("3: Disconnecting a full Pipe from Pump");
             System.out.println("4: Stepping cistern");
+            System.out.println("5: Second person tries to step on pipe");
+            System.out.println("6: Source steps");
+            System.out.println("7: Place pump");
 
             System.out.println("8: Player steps 2");
             System.out.println("9: Connect Pipe to Pump");
@@ -24,6 +27,7 @@ public class Main {
             System.out.println("16: Tester disconnects empty pipe from Pump");
             System.out.println("17: Pump steps twice after repair");
             System.out.println("18: Working Pump pumps");
+            System.out.println("19: Tester disconnects out pipe from pump");
             System.out.println("X: Exit\n");
             System.out.print("Enter your choice: ");
 
@@ -52,6 +56,12 @@ public class Main {
             if (no == 16) Tester.DisconnectEmptyPipeFromPump();
             if (no == 17) Tester.StepPumpTwiceAfterRepair();
             if (no == 18) Tester.WorkingPumpPumps();
+
+            //Erik
+            if(no == 5) Tester.SecondPersonSteps();
+            if(no == 6) Tester.SourceSteps();
+            if(no == 7) Tester.PlacePump();
+            if(no == 19) Tester.DisconnectOutPipeFromPump();
 
             if(no < 1 || no > 18) break;
 
