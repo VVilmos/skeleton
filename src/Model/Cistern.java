@@ -31,11 +31,15 @@ public class Cistern extends Node {
      */
     public PipeEnd MakePipe() {
         Skeleton.Start(this, "MakePipe()");
+
+        Skeleton.CtorStart("Pipe(" + Skeleton.GetObjectName(this) + ") newpip");
         Pipe newpip = new Pipe(this);  //ezt nem kene hozzaadni a hashMap-hez?
+        Skeleton.End();
         Skeleton.AddObject(newpip, "newpip");
         List<PipeEnd> ends = newpip.GetEnds();
+
         Skeleton.End();
-        Skeleton.PrintReturn("end2");
+        Skeleton.PrintReturn(Skeleton.GetObjectName(ends.get(1)));
         return ends.get(1);
     }
 
@@ -44,9 +48,11 @@ public class Cistern extends Node {
      * @return az új pumpa
      */
     public Pump MakePump() {
-        Skeleton.Start(this, "MakePump");
-        Skeleton.End();
+        Skeleton.Start(this, "MakePump()");
+        Skeleton.CtorStart("Pump() newPump");
         Pump newPump = new Pump();
+        Skeleton.End();
+        Skeleton.End();
         Skeleton.PrintReturn("newPump");
         return newPump;
     }
