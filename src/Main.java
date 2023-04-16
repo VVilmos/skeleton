@@ -63,7 +63,7 @@ public class Main {
             if(no == 7) Tester.PlacePump();
             if(no == 19) Tester.DisconnectOutPipeFromPump();
 
-            if(no < 1 || no > 18) break;
+            if(no < 1 || no > 19) break;
 
             System.out.print("\nDo you want to try another test case [y/n]? ");
             char ans = scanner.next().charAt(0);

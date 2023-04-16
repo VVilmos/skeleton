@@ -13,7 +13,7 @@ public class Source extends Node{
     public void Step() {
         Skeleton.Start(this, "Step()");
         for (PipeEnd pe : pipeEnds)  {
-            pe.AcceptWater();
+            if(pe != null) pe.AcceptWater();
         }
         Skeleton.End();
     }
