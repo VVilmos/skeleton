@@ -75,7 +75,9 @@ public class Tester {
         Skeleton.LogOff();
 
         Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
+
         Pump pu = new Pump();
+
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
@@ -175,6 +177,7 @@ public class Tester {
     public static void StepOnCisternAndPicksUpPipe(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
         Cistern to = new Cistern();
         Skeleton.AddObject(to, "to");
         Pipe on = new Pipe(to);

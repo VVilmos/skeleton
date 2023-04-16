@@ -16,14 +16,20 @@ public class Pipe extends Element{
 
     public Pipe(Node node) {            //itt ki kéne találni, hogyan logoljuk a konstruktort / egyáltalán kell-e
         count++;
+       // Skeleton.CtorStart("PipeEnd(" + Skeleton.GetObjectName(this) + ") end" + count + "1");
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "1");
         PipeEnd end1 = new PipeEnd(this);
+        Skeleton.End();
+
         Skeleton.AddObject(end1, "end" + count + "1");
         node.AddPipe(end1);
+
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "2");
         PipeEnd end2 = new PipeEnd(this);
         Skeleton.AddObject(end2, "end" + count + "2");
         ends.add(end1);
         ends.add(end2);
-
+        Skeleton.End();
     }
 
     public void Leak() {  //pontadas?
