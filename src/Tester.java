@@ -96,6 +96,7 @@ public class Tester {
     public static void CisternSteps() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Pipe.ResetCounter();
 
         Cistern c = new Cistern();
         Skeleton.AddObject(c, "c");
