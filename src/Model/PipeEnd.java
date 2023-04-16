@@ -76,10 +76,17 @@ public class PipeEnd {
         this.node = node;
     }
 
+    /**
+     * Lecsatlakoztatja a csővéget a felkapcsolt {@link Node}-ról.
+     */
     public void DisconnectFromNode(){  //pontadas?
 
     }
 
+    /**
+     * Getter a {@link Node}-ra, amire a csővég rá van kapcsolva.
+     * @return Visszatéríti a csővéghez kapcsolódó {@link Node}-ot.
+     */
     public Node GetAttachedNode(){
         Skeleton.Start(this, "GetAttachedNode()");
         Skeleton.End();
@@ -88,11 +95,4 @@ public class PipeEnd {
 
     }
 
-    /**
-     * Getter a {@link Node}-ra, amire a csővég rá van kapcsolva.
-     * @return Visszatéríti a csővéghez kapcsolódó {@link Node}-ot.
-     */
-    public Node getNode(){
-        return node;
-    }
 }
