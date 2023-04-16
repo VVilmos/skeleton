@@ -50,7 +50,8 @@ public class Mechanic extends Player{
     public void PickupPipe() {
         Skeleton.Start(this, "PickUpPipe()");
         PipeEnd p = on.MakePipe();
-        SetHoldingPipeEnd(p);
+        //SetHoldingPipeEnd(p);
+        holdingPipeEnd = p;
         Skeleton.End();
     }
     public void RepairPipe() {

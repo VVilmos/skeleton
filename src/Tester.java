@@ -112,7 +112,7 @@ public class Tester {
         Skeleton.AddObject(on, "on");
         on.Patch(); //kell-e?
         on.AcceptWater(null);
-
+        
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
@@ -128,7 +128,9 @@ public class Tester {
         s.BreakPipe(pool);
         on.AcceptWater(pool);
     }
-
+        
+        
+    //12
     public static void SecondStepOnPump(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -140,9 +142,7 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pi = new Pipe(pu);
         Skeleton.AddObject(pi, "pi");
-        m1.Move(pi);
         pi.AcceptPlayer(m1);
-        m2.Move(pu);
         pu.AcceptPlayer(m2);
 
         System.out.println("\nSecond person tries to step on Pump");
@@ -154,9 +154,10 @@ public class Tester {
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
-        m1.Move(pu);
+        m2.Move(pu);
     }
 
+    //13
     public static void GetPumpAtCistern() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -166,7 +167,6 @@ public class Tester {
         Skeleton.AddObject(pi, "pi");
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
-        m.Move(pi);
         pi.AcceptPlayer(m);
 
         System.out.println("\nTester steps on Cistern and picks up Pump");
@@ -181,6 +181,7 @@ public class Tester {
         m.PickupPump();
     }
 
+    //14
     public static void BreakPumpAndTwoStep(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -201,4 +202,11 @@ public class Tester {
         pu.Step();
         pu.Step();
     }
+
+
+
+
+
+
+
 }

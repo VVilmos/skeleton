@@ -9,12 +9,14 @@ public abstract class Element {
 
     public abstract List<Element> GetNeighbours();
     public abstract boolean AcceptPlayer(Player p);
+
     public void RemovePlayer(Player p) {
         Skeleton.Start(this, "RemovePlayer(" + Skeleton.GetObjectName(p) + ")");
         players.remove(p);
         Skeleton.End();
     }
-    public boolean AddPipe(PipeEnd pe) { return false;}
+    
+    public boolean AddPipe(PipeEnd pe) { return false;}   
     public void RemovePipe(PipeEnd pe) {}
     public void Break() {}  //minek?
     public void Repair() {}
@@ -25,4 +27,5 @@ public abstract class Element {
     public void Leak(Pool pool) {}
     public void Patch() {}
     public List<PipeEnd> GetEnds() {return null;}
+
 }

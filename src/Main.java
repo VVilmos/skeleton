@@ -16,6 +16,7 @@ public class Main {
             System.out.println("9: Connect Pipe to Pump");
             System.out.println("10: Step on Cistern and picks up Pipe");
             System.out.println("11: Break Pipe, then it accepts water");
+
             System.out.println("12: Second person tries to step on Pump");
             System.out.println("13: Tester steps on Cistern and picks up Pump");
             System.out.println("14: Pump breaks with full Tank and steps two times");
@@ -24,12 +25,16 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
             int no = scanner.nextInt();
-
+            
+            //Vili
             if (no == 1) Tester.LeakingPipeRepair();
+            //Viola
             if(no == 8) Tester.PlayerSteps2();
             if(no == 9) Tester.ConnectPipeToPump();
             if(no == 10) Tester.StepOnCisternAndPicksUpPipe();
             if(no == 11) Tester.BreakPipeAndItAcceptsWater();
+
+            //Blanka
             if (no == 12) Tester.SecondStepOnPump();
             if (no == 13) Tester.GetPumpAtCistern();
             if (no == 14) Tester.BreakPumpAndTwoStep();
