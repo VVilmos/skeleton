@@ -40,9 +40,11 @@ public class Mechanic extends Player{
         }
 
         Pipe newPipe = on.Cut();
+        Skeleton.LogOff();
         Skeleton.AddObject(newPipe, "newPipe");
         Skeleton.AddObject(newPipe.GetEnds().get(0), "newEnd1");
         Skeleton.AddObject(newPipe.GetEnds().get(1), "newEnd2");
+        Skeleton.LogOn();
 
         List<PipeEnd> ends = on.GetEnds();
         ends.get(1).ConnectNode(holdingPumps.get(0));
