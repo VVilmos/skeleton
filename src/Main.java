@@ -53,6 +53,8 @@ public class Main {
             if (no == 17) Tester.StepPumpTwiceAfterRepair();
             if (no == 18) Tester.WorkingPumpPumps();
 
+            if(no < 1 || no > 18) break;
+
             System.out.print("\nDo you want to try another test case [y/n]? ");
             char ans = scanner.next().charAt(0);
             if (ans == 'n') break;
