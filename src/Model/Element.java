@@ -16,8 +16,10 @@ public abstract class Element {
    public abstract boolean AcceptPlayer(Player p);
     public abstract List<Element> GetNeighbours();
 
-    void RemovePlayer(Player p) {
+    public void RemovePlayer(Player p) {
+        Skeleton.Start(this, "RemovePlayer(" + Skeleton.GetObjectName(p) + ")");
         players.remove(p);
+        Skeleton.End();
     }
 
     public boolean AddPipe(PipeEnd pe) { return true;}
@@ -31,6 +33,5 @@ public abstract class Element {
     public Pump MakePump() {return new Pump();}
     public PipeEnd MakePipe() {return null;}
     public Pipe Cut() {return null;}
-
-
+    public List<PipeEnd> GetEnds() {return null;}
 }

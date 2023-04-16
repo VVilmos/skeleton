@@ -10,14 +10,15 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public abstract class Node extends Element implements ISteppable{
 
-    protected PipeEnd[] pipeEnds = {null, null, null, null, null, null, null, null};
+    protected List<PipeEnd> pipeEnds = new ArrayList<>();
 
     @Override
     public boolean AcceptPlayer(Player p) {
-        Skeleton.Start(this, "AcceptPlayer( " + Skeleton.GetObjectName(p) + ")");
+        Skeleton.Start(this, "AcceptPlayer(" + Skeleton.GetObjectName(p) + ")");
         players.add(p);
 
         Skeleton.End();
+        Skeleton.PrintReturn("true");
         return true;
     }
 
@@ -27,8 +28,8 @@ public abstract class Node extends Element implements ISteppable{
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
-        for (int i = 0; i < pipeEnds.length; i++)
-            neighbours.add(pipeEnds[i].GetOwnPipe());
+        for (int i = 0; i < pipeEnds.size(); i++)
+            neighbours.add(pipeEnds.get(i).GetOwnPipe());
 
         Skeleton.End();
         return neighbours;
@@ -36,10 +37,8 @@ public abstract class Node extends Element implements ISteppable{
 
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.length <= 8) {
-            int i = 0;
-            while (pipeEnds[i] != null) {i++;}
-            pipeEnds[i] = pe;
+        if (pipeEnds.size() <= 8) {
+            pipeEnds.add(pe);
             Skeleton.End();
             Skeleton.PrintReturn("true");
             return true;
@@ -53,17 +52,14 @@ public abstract class Node extends Element implements ISteppable{
 
     public void RemovePipe(PipeEnd pe) {
         Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
-        int i = 0;
-        while (!pipeEnds[i].equals(pe)){i++;}
-        pipeEnds[i] = null;
+        pipeEnds.remove(pe);
         Skeleton.End();
     }
 
-    public PipeEnd[] GetPipeEnds() {
+    public List<PipeEnd> GetPipeEnds() {
         Skeleton.Start(this, "GetPipeEnds()");
         Skeleton.End();
         return pipeEnds;
     }
-
 
 }

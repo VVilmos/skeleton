@@ -19,7 +19,7 @@ public class Cistern extends Node {
     }
 
     public Pump MakePump() {
-        Skeleton.Start(this, "MakePump");
+        Skeleton.Start(this, "MakePump()");
         Skeleton.End();
         return new Pump();
     }

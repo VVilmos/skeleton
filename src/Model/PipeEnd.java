@@ -37,4 +37,10 @@ public class PipeEnd {
         Skeleton.End();
         if (accepted) this.node = node;
     }
+
+    public Node GetAttachedNode() {
+        Skeleton.Start(this, "GetAttachedNode()");
+        Skeleton.End();
+        return node;
+    }
 }

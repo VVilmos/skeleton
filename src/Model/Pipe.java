@@ -75,13 +75,25 @@ public class Pipe extends Element{
         return false;
     }
 
-    public Pipe Cut() {return null;}
+    public Pipe Cut() {
+        Skeleton.Start(this, "Cut()");
+        Node node = ends.get(1).GetAttachedNode();
+        node.RemovePipe(ends.get(1));
+        Pipe newPipe = new Pipe(node);
+        Skeleton.End();
+        return newPipe;
+    }
 
-    public List<PipeEnd> GetEnds() {return ends;}
+    @Override
+    public List<PipeEnd> GetEnds() {
+        Skeleton.Start(this, "GetEnds()");
+        Skeleton.End();
+        return ends;
+    }
     public List<Element> GetNeighbours() {
         List<Element> neighbours = new ArrayList<>();
         for (PipeEnd e : ends) {
-            neighbours.add(e.GetOwnPipe());
+            neighbours.add(e.GetAttachedNode());
         }
         return neighbours;
     }
