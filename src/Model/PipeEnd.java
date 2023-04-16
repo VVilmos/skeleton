@@ -1,8 +1,9 @@
 package Model;
 
 /**
- * Csővég.
- * Ezen keresztül csatlakozik egy cső a szomszédos elemeihez.
+ * A játékban levő csővégeket reprezentálja. \n
+ * Lehet hozzá Node-ot kötni illetve lecsatlakoztatni róla. \n
+ * Tárolja, hogy milyen Node-dal áll összeköttetésben, és hogy melyik csőhöz tartozik.
  */
 public class PipeEnd {
     /**
@@ -16,30 +17,28 @@ public class PipeEnd {
     private Node node;
 
     /**
-     * Konstruktor
-     * @param p a cső, aminek a vége.
+     * A PipeEnd konstruktora \n
+     * Hozzárendeli, felcsatlakoztatja a paraméterként kapott csőre a csővégt.
+     * @param p A cső, amire kerül ez a csővég.
      */
     public PipeEnd(Pipe p) {
-        Skeleton.CtorStart("PipeEnd(" + Skeleton.GetObjectName(p) + ")");
         this.pipe = p;
-        Skeleton.End();
     }
-
     /**
-     * Visszaadja a csövet, aminek a végéről van szó.
-     * @return a cső.
+     * Getter a csővéghez tartozó csőre.
+     * @return Visszatéríti a csövet, aminek ez a csővég a vége.
      */
-    public Element GetOwnPipe() {
+    public Pipe GetOwnPipe() {
         Skeleton.Start(this, "GetOwnPipe()");
-        Pipe ownPipe = this.pipe;
+
         Skeleton.End();
         Skeleton.PrintReturn(Skeleton.GetObjectName(this.pipe));
         return pipe;
     }
 
     /**
-     * Elfogad egy egység vizet.
-     * @return sikerült-e az elfogadás.
+     * Továbbítja a vizet a csőnek.
+     * @return Igazzal tér vissza, ha a cső ({@link Pipe}) képes vizet befogadni.
      */
     public boolean AcceptWater() {
         Skeleton.Start(this, "AcceptWater()");
@@ -55,8 +54,8 @@ public class PipeEnd {
     }
 
     /**
-     * A csővégen keresztül kiveszi az egység vizet a csőből. (ha van benne)
-     * @return sikerült-e a művelet.
+     * Kiszívja, eltávolítja a vizet a csővéghez tartozó csőből.
+     * @return Igazzal tér vissza, ha a csőből ({@link Pipe}) lehet vizet kiszívni.
      */
     public boolean RemoveWater() {
         Skeleton.Start(this, "RemoveWater()");
@@ -68,8 +67,8 @@ public class PipeEnd {
     }
 
     /**
-     * Hozzácsatol egy nodeot a csővéghez.
-     * @param node
+     * A paraméterként kapott {@link Node}-hoz kapcsolja a csővéget.
+     * @param node A {@link Node}, amire a csővéget felcsatlakoztatjuk.
      */
     public void ConnectNode(Node node) {
         Skeleton.Start(this, "ConnectNode(" + Skeleton.GetObjectName(node) + ")");
@@ -78,9 +77,9 @@ public class PipeEnd {
     }
 
     /**
-     * Lekapcsolja a csővéget a noderól.
+     * Lecsatlakoztatja a csővéget a felkapcsolt {@link Node}-ról.
      */
-    public void DisconnectFromNode(){
+    public void DisconnectFromNode(){  //pontadas?
         Skeleton.Start(this, "DisconnectFromNode()");
         boolean isFull = pipe.RemoveWater();
         if (isFull) Game.getSaboteurPool().AddWater();
@@ -88,8 +87,8 @@ public class PipeEnd {
     }
 
     /**
-     * Visszaadja a node-ot, amihez hozzá van kötve a csővég.
-     * @return a megfelelő node.
+     * Getter a {@link Node}-ra, amire a csővég rá van kapcsolva.
+     * @return Visszatéríti a csővéghez kapcsolódó {@link Node}-ot.
      */
     public Node GetAttachedNode(){
         Skeleton.Start(this, "GetAttachedNode()");

@@ -6,15 +6,8 @@ package Model;
  */
 public class Source extends Node{
     /**
-     * Konstruktor
-     */
-    public Source() {
-        Skeleton.CtorStart("Source()");
-        Skeleton.End();
-    }
-
-    /**
-     * Lépteti a forrást, amely ezáltal kilöki magából a vizet.
+     * A forrás minden ütem elején való léptetését megvalósító függvény,
+     * amely minden hozzákötött csővégbe belepumpálja a vizet
      */
     @Override
     public void Step() {

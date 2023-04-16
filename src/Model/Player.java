@@ -1,36 +1,38 @@
 package Model;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Egy absztrakt játékos.
- * A szabotőr és a szerelő közös viselkedését valósítja meg.
+ * A játékosok által irányítható karaktereket reprezentáló absztrakt osztály.
+ * Felelőssége: a karakterek mozgatása, különböző akciók megvalósítása.
  */
 public abstract class Player {
     /**
-     * Az elem, amin a játékos éppen áll.
+     * Az az Element, amelyen a Player éppen tartózkodik.
      */
     protected Element on = null;
 
     /**
-     * A cső, amit a játékos éppen fog.
+     * Az a PipeEnd, amelyet a Player a kezében tart.
      */
-    protected PipeEnd holdingPipeEnd;
+    protected PipeEnd holdingPipeEnd = null;
 
     /**
-     * Beállítja az éppen fogott csövet.
-     * @param pe csővég, amit fogni szeretne.
+     * A Player paraméter nélküli konstruktora.
      */
-    public void SetHoldingPipeEnd(PipeEnd pe){
-        Skeleton.Start(this, "SetHoldingPipeEnd(" + Skeleton.GetObjectName(pe) + ")");
-        this.holdingPipeEnd = pe;
-        Skeleton.End();
-    }
+    public Player(){    }
 
     /**
-     * Rálép a megadott elemre, ha szomszédos.
-     * @param to az elem, amire lépni szeretne.
+     * Átmozgatja a Player-t egy másik, szomszédos Element-re, amennyiben sikerül, eltárolja az új helyzetének.
+     * Amennyiben a Player még nincs rajta egy Element-en sem, tehát az on attribútuma null, a mozgatás
+     * beállítja a to paramétert az on attribútumnak, amit inicializáláskor használunk.
+     * Egyéb esetben lekérdezi a szomszédokat, és ellenőrzi, hogy a megadott Element szomszédos-e azzal az
+     * Element-tel, amin áll. Ha ez teljesül, akkor rálépteti a PLayer-t, és ha ez a művelet sikeres volt, akkor
+     * eltávolítja az on Elementről a PLayer-t és beállítja az új helyzetét.
+     * @param to az az Element, amire átmozgatja a Player-t
      */
     public void Move(Element to){
         Skeleton.Start(this, "Move(" + Skeleton.GetObjectName(to) + ")");
@@ -59,9 +61,9 @@ public abstract class Player {
     }
 
     /**
-     * Átállítja a pumpát.
-     * @param from honnan.
-     * @param to hova.
+     * Átállítja annak a pumpának a bemeneti és kimeneti csövét, amin a karakter áll.
+     * @param from az a csővég, amiből kapja a vizet a pumpa
+     * @param to az a csővég, amelyikbe továbbítja a vizet a pumpa
      */
     public void SwitchPump(PipeEnd from, PipeEnd to){
         Skeleton.Start(this, "SwitchPump(" + Skeleton.GetObjectName(from)
@@ -71,7 +73,9 @@ public abstract class Player {
     }
 
     /**
-     * Hozzákapcsolja az éppen fogott csövet az elemhez, amin áll.
+     * Csatlakoztatja a holding attribútumban levő csövet ahhoz az Elementhez, amin áll.
+     * Csak akkor próbál csatlakoztatni, ha van cső a PLayer kezében, és ha ez sikerült,
+     * törli a csövet a kezéből.
      */
     public void ConnectPipe() {
         Skeleton.Start(this, "ConnectPipe()");
@@ -86,13 +90,28 @@ public abstract class Player {
     }
 
     /**
-     * Lekapcsolja a csövet.
-     * @param p a lekapcsolandó cső.
+     * Lecsatlakoztatja a megadott paraméterű csővéget arról az Elementről, amin áll, és hozzáadja
+     * a holdingPipeEnd-hez. Amenniyben a Player-nek már van a kezében egy csővég, akkor nem tud más
+     * csövet lecsatlakoztatni.
+     * @param p a lecsatlakoztatni kívánt PipeEnd
      */
     public void DisconnectPipe(PipeEnd p){
-        Skeleton.Start(this, "DisconnectPipe(" + Skeleton.GetObjectName(p) + ")");
-        on.RemovePipe(p);
-        holdingPipeEnd = p;
+        Skeleton.Start(this, "DisconnectPipe()");
+        if(holdingPipeEnd == null){
+            on.RemovePipe(p);
+            holdingPipeEnd = p;
+            Skeleton.End();
+        }
+
+    }
+
+    /**
+     * Beállítja a paraméterben megadott csővéget a HoldingPipeEnd-nek.
+     * @param pE a beállítandó PipeEnd
+     */
+    public void SetHoldingPipeEnd(PipeEnd pE){
+        Skeleton.Start(this, "SetHoldingPipeEnd(" + Skeleton.GetObjectName(pE) + ")");
+        this.holdingPipeEnd = pE;
         Skeleton.End();
     }
 }

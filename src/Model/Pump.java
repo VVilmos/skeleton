@@ -30,11 +30,10 @@ public class Pump extends Node{
     private boolean tankFull;
 
     /**
-     * Konstruktor
+     * Az osztály paraméter nélküli konstruktora
      */
     public Pump() {
-        Skeleton.CtorStart("Pump()");
-        Skeleton.End();
+
     }
 
     /**

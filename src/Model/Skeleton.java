@@ -79,6 +79,7 @@ public  class Skeleton {
         }
     }
 
+
     /**
      * Új objektum felvétele a HashMap-be
      * @param object az új objektum referenciája

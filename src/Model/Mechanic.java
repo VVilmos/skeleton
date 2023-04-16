@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Egy szerelő játékos.
+ * A szerelőt reprezentáló osztály, a Player osztályból származik.
+ * Felelőssége: Képes megjavítani az elromlott pumpákat és a lyukas csöveket,
+ * új csövet / pumpákat magához venni és letenni.
  */
 public class Mechanic extends Player{
     /**
-     * Konstruktor
-     */
-    public Mechanic() {
-        Skeleton.CtorStart("Mechanic()");
-        Skeleton.End();
-    }
-
-    /**
-     * A pumpák, amelyeket a szerelő éppen magánál tart.
+     * A szerelőnél levő pumpákat tárolja el.
      */
     private List<Pump> holdingPumps = new ArrayList<>();
 
     /**
-     * Megjavítja a pumpát (ha éppen rossz pumpán áll).
+     * A Mechanic paraméter nélküli konstruktora.
+     */
+    public Mechanic(){
+        super();
+    }
+
+    /**
+     * Megjavítja a pumpát, amin a szerelő áll.
      */
     public void RepairPump() {
         Skeleton.Start(this, "RepairPump()");
@@ -58,7 +59,9 @@ public class Mechanic extends Player{
     }
 
     /**
-     * Felvesz egy pumpát, csak ciszternánál van értelme.
+     * Felvesz egy új pumpát.
+     * Megkéri a Ciszternát, hogy gyártson le neki egy új pumpát,
+     * majd hozzáaadja azt a holdingPumps-hoz.
      */
     public void PickupPump() {
         Skeleton.Start(this, "PickUpPump()");
@@ -68,17 +71,22 @@ public class Mechanic extends Player{
     }
 
     /**
-     * Magához vesz egy csövet, csak ciszternánál van értelme.
+     * Felvesz egy új csővéget, amennyiben a Mechanic kezében nincs már egy.
+     * Megkéri a Ciszternát, hogy gyártson le neki egy új csövet,
+     * majd hozzáadja a végét a holdingPipeEnd-hez.
+     * A cső másik vége a Ciszternához van bekötve.
      */
     public void PickupPipe() {
         Skeleton.Start(this, "PickUpPipe()");
-        PipeEnd p = on.MakePipe();
-        holdingPipeEnd = p;
+        if(holdingPipeEnd == null){
+            PipeEnd p = on.MakePipe();
+            holdingPipeEnd = p;
+        }
         Skeleton.End();
     }
 
     /**
-     * Megjavítja a csövet, amin éppen áll.
+     * Megfoltozza a csövet, amin a Mechanic áll.
      */
     public void RepairPipe() {
         Skeleton.Start(this, "RepairPipe()");

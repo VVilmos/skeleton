@@ -1,9 +1,5 @@
 package Model;
 
-/**
- * Egy játékmenetet reprezentáló osztály
- * A megvalósítani kívánt tesztprogram jellege miatt még csak korlátozott felelősséggel bír, tényleges játszma megvalósítására nem alkalmas!
- */
 public class Game {
     /**
      * A szabotőrök csapata által megszerzett víz "gyüjtőhelye"

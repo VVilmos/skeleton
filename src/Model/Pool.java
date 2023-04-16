@@ -6,12 +6,12 @@ package Model;
  */
 public class Pool {
     /**
-     * A medence tartalma.
+     * A Pool által tárolt víz mennyisége.
      */
     private int amount = 0;
 
     /**
-     * Beönt egy egység vizet a medencébe.
+     * Ez a metódus vizet ad hozzá a Pool-hoz. Ezáltal a Pool által tárolt víz mennyisége nő.
      */
     public void AddWater(){
         Skeleton.Start(this, "AddWater()");

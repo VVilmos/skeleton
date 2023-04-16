@@ -48,7 +48,7 @@ public class Cistern extends Node {
         Skeleton.AddObject(ends.get(1), "newEnd2");
 
         Skeleton.End();
-        Skeleton.PrintReturn("newEnd2");
+        Skeleton.PrintReturn(Skeleton.GetObjectName(ends.get(1)));
         return ends.get(1);
     }
 
