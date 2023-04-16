@@ -3,6 +3,9 @@ import Model.*;
 import java.lang.invoke.MethodHandle;
 import java.util.List;
 
+/**
+ * Tesztelő osztály a játékban szereplő osztályok elvárt működésének ellenörzésére
+ */
 public class Tester {
 
     public static void LeakingPipeRepair() {
@@ -228,8 +231,10 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pi = new Pipe(pu);
         Skeleton.AddObject(pi, "pi");
-        pi.AcceptPlayer(m1);
-        pu.AcceptPlayer(m2);
+        /*pi.AcceptPlayer(m1);
+        pu.AcceptPlayer(m2);*/
+        m1.Move(pi);
+        m2.Move(pu);
 
         System.out.println("\nSecond person tries to step on Pump");
         System.out.println("\nThe test will run on the following objects:");
@@ -240,7 +245,7 @@ public class Tester {
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
-        m2.Move(pu);
+        m1.Move(pu);
     }
 
     //13
@@ -253,7 +258,7 @@ public class Tester {
         Skeleton.AddObject(pi, "pi");
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
-        pi.AcceptPlayer(m);
+        m.Move(pi);
 
         System.out.println("\nTester steps on Cistern and picks up Pump");
         System.out.println("\nThe test will run on the following objects:");

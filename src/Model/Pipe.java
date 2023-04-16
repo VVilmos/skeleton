@@ -91,7 +91,7 @@ public class Pipe extends Element{
     public Pipe Cut() {return null;}
 
     public List<PipeEnd> GetEnds() {
-        Skeleton.Start(this, "GetEnds");
+        Skeleton.Start(this, "GetEnds()");
         Skeleton.End();
         Skeleton.PrintReturn("ends");
         return ends;
