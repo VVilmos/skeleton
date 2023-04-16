@@ -9,15 +9,15 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * Felelőssége: ..
  */
 public abstract class Node extends Element implements ISteppable{
-
     protected PipeEnd[] pipeEnds = {null, null, null, null, null, null, null, null};
 
     @Override
     public boolean AcceptPlayer(Player p) {
-        Skeleton.Start(this, "AcceptPlayer( " + Skeleton.GetObjectName(p) + ")");
+        Skeleton.Start(this, "AcceptPlayer(" + Skeleton.GetObjectName(p) + ")");
         players.add(p);
 
         Skeleton.End();
+        Skeleton.PrintReturn("true");
         return true;
     }
 
@@ -27,19 +27,25 @@ public abstract class Node extends Element implements ISteppable{
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
-        for (int i = 0; i < pipeEnds.length; i++)
-            neighbours.add(pipeEnds[i].GetOwnPipe());
-
+        for (int i = 0; i < pipeEnds.length; i++){
+            if (pipeEnds[i] != null) {
+                neighbours.add(pipeEnds[i].GetOwnPipe());
+            }
+        }
         Skeleton.End();
+        Skeleton.PrintReturn("neighbours");
         return neighbours;
     }
 
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.length <= 8) {
+        if (pipeEnds.length <= 8) { //😎
             int i = 0;
             while (pipeEnds[i] != null) {i++;}
             pipeEnds[i] = pe;
+
+            pe.ConnectNode(this);
+
             Skeleton.End();
             Skeleton.PrintReturn("true");
             return true;
