@@ -1,5 +1,6 @@
 import Model.*;
 
+import java.lang.invoke.MethodHandle;
 import java.util.List;
 
 public class Tester {
@@ -12,7 +13,7 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
-        pip.Leak(null);
+        pip.Leak();
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
@@ -29,10 +30,93 @@ public class Tester {
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
         m.RepairPipe();
-        pip.AcceptWater(null);
+        pip.AcceptWater();
         pu.Step();
 
     }
+
+    public static void SteppingToAndSwitchPump() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pump pu = new Pump();
+        Skeleton.AddObject(pu, "pu");
+        pu.FillWaterTank();
+        Pipe pip1 = new Pipe(pu);
+        Skeleton.AddObject(pip1, "pip1");
+        PipeEnd from = pip1.GetEnds().get(0);
+        pip1.AcceptWater();
+        Pipe pip2 = new Pipe(pu);
+        Skeleton.AddObject(pip2, "pip2");
+        PipeEnd to = pip2.GetEnds().get(0);
+
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m ,"m");
+        m.Move(pip1);
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("pu:Pump with two pipes connected to it \npip2:Pipe connected to Pump pu \n" +
+                "end1/end2: the ends of Pipe pip \nm: Mechanic standing on Pipe pip1");
+
+        //Tester függvényhívásai
+        Skeleton.LogOn();
+        m.Move(pu);
+
+        pu.Switch(from, to);
+        pu.Step();
+
+    }
+
+    public static void DisconnectingFullPipe() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+
+        Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
+        Pump pu = new Pump();
+        Skeleton.AddObject(pu, "pu");
+        Pipe pip = new Pipe(pu);
+        Skeleton.AddObject(pip, "pip");
+        pip.AcceptWater();
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        m.Move(pu);
+        PipeEnd end1 = pip.GetEnds().get(0);
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("pu:Pump with one pipe connected to it \npip:Full Pipe connected to Pump pu \n" +
+                "end1: the connected end of Pipe pip \nm: Mechanic standing on Pump pu \nsaboteurPool: Pool that represents all water Saboteurs collect");
+
+        //Tester függvényhívásai
+        Skeleton.LogOn();
+        m.DisconnectPipe(end1);
+
+    }
+
+    public static void CisternSteps() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+
+        Cistern c = new Cistern();
+        Skeleton.AddObject(c, "c");
+        Pipe pip1 = new Pipe(c);
+        Skeleton.AddObject(pip1, "pip1");
+        pip1.AcceptWater();
+
+        Pipe pip2 = new Pipe(c);
+        Skeleton.AddObject(pip2, "pip2");
+        Skeleton.AddObject(Game.getMechanicPool(), "mechanicPool");
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("c:Cistern with two pipe connected to it \npip1:Full Pipe connected to Cistern c \n" +
+                "pip2: Empty Pipe conected to Cistern c \nend1: connected ends of Pipe");
+
+        //Tester függvényhívásai
+        Skeleton.LogOn();
+        c.Step();
+    }
+
 
     public static void PlayerSteps2(){
         Skeleton.ClearMap();
@@ -82,6 +166,8 @@ public class Tester {
         m.ConnectPipe();
     }
 
+
+
     public static void StepOnCisternAndPicksUpPipe(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -106,27 +192,26 @@ public class Tester {
     public static void BreakPipeAndItAcceptsWater(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+        Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
         Pump p1 = new Pump();
         Skeleton.AddObject(p1, "p1");
         Pipe on = new Pipe(p1);
         Skeleton.AddObject(on, "on");
         on.Patch(); //kell-e?
-        on.AcceptWater(null);
+        on.AcceptWater();
         
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
         on.AcceptPlayer(s);
-        Pool pool = new Pool();
-        Skeleton.AddObject(pool, "pool");
 
         System.out.println("\nThe test will run on the following objects:");
         System.out.println("p1: \non: \ns: \npool: ");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
-        s.BreakPipe(pool);
-        on.AcceptWater(pool);
+        s.BreakPipe();
+        on.AcceptWater();
     }
         
         

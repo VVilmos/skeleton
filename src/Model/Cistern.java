@@ -6,7 +6,13 @@ public class Cistern extends Node {
     @Override
     public void Step() {  //pontadas?
         Skeleton.Start(this, "Step()");
-        for (PipeEnd pe : pipeEnds)  {pe.RemoveWater();}
+        for (PipeEnd pe : pipeEnds)  {
+            if (pe != null) {
+                boolean hadWater =  pe.RemoveWater();
+                if (hadWater) Game.getMechanicPool().AddWater();
+            }
+        }
+
         Skeleton.End();
     }
 

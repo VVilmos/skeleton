@@ -20,12 +20,12 @@ public class Pipe extends Element{
         ends.add(end2);
     }
 
-    public void Leak(Pool sP) {  //pontadas?
+    public void Leak() {  //pontadas?
         Skeleton.Start(this, "Leak()");
         isBroken = true;
-        hasWater = false;
-        if(sP != null){
-            sP.AddWater();
+        if (hasWater) {
+            Game.getSaboteurPool().AddWater();
+            hasWater =false;
         }
         Skeleton.End();
     }
@@ -36,7 +36,7 @@ public class Pipe extends Element{
         Skeleton.End();
     }
 
-    public boolean AcceptWater(Pool pool) {
+    public boolean AcceptWater() {
         Skeleton.Start(this, "AcceptWater()");
         if(hasWater) {
             Skeleton.End();
@@ -44,8 +44,9 @@ public class Pipe extends Element{
             return false;
         }
         hasWater = true;
-        if(isBroken && pool != null){
-            pool.AddWater();
+        if(isBroken){
+            Game.getSaboteurPool().AddWater();
+            hasWater = false;
         }
         Skeleton.End();
         Skeleton.PrintReturn("true");

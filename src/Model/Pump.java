@@ -30,7 +30,7 @@ public class Pump extends Node{
         Skeleton.Start(this, "Switch(" + Skeleton.GetObjectName(from) + "," + Skeleton.GetObjectName(to) + ")");
         for (int i = 0; i < pipeEnds.length; i++) {
             if (pipeEnds[i] != null&&pipeEnds[i].equals(from)) inPipe = i;
-            if (pipeEnds[i] != null&&pipeEnds[i].equals(from)) outPipe = i;
+            if (pipeEnds[i] != null&&pipeEnds[i].equals(to)) outPipe = i;
         }
         Skeleton.End();
     }
@@ -50,6 +50,12 @@ public class Pump extends Node{
     public void FillWaterTank() {
         Skeleton.Start(this, "FillWaterTank()");
         tankFull = true;
+        Skeleton.End();
+    }
+
+    public void RemovePipe(PipeEnd pe) {
+        Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
+        pe.DisconnectFromNode();
         Skeleton.End();
     }
 }

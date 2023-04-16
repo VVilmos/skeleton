@@ -35,6 +35,7 @@ public  class Skeleton {
         }
     }
 
+
     public static void AddObject(Object object, String name) {hm.put(object, name);}
 
     public static String GetObjectName(Object o) { return hm.get(o);}
