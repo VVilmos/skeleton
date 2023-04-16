@@ -80,6 +80,7 @@ public abstract class Node extends Element implements ISteppable{
         Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
         int i = 0;
         while (i < 8 && (pipeEnds[i] == null || !pipeEnds[i].equals(pe))){i++;}
+        if(pipeEnds[i] != null) pipeEnds[i].DisconnectFromNode();
         Skeleton.End();
     }
 
