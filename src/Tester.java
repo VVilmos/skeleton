@@ -74,7 +74,7 @@ public class Tester {
         PipeEnd to = pip2.GetEnds().get(0);
 
         Mechanic m = new Mechanic();
-        Skeleton.AddObject(m ,"m");
+        Skeleton.AddObject(m, "m");
         m.Move(pip1);
 
         //létrehozott objektumok és állapotuk feltüntetése a konzolon
@@ -192,7 +192,7 @@ public class Tester {
         m.ConnectPipe();
     }
 
-    public static void StepOnCisternAndPicksUpPipe(){
+    public static void StepOnCisternAndPicksUpPipe() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pipe.ResetCounter();
@@ -224,7 +224,7 @@ public class Tester {
         Skeleton.AddObject(on, "on");
         on.Patch(); //kell-e?
         on.AcceptWater();
-        
+
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
@@ -408,9 +408,61 @@ public class Tester {
 
         Skeleton.LogOn();
 
+    }
 
+    /**
+     * A pumpa megjavítása után kétszeri léptetéssel ellenőrzi a helyes működést.
+     */
+    public static void StepPumpTwiceAfterRepair() {
+        initPumpWithTwoPipes();
+        pump.BreakPump();
+        p1.AcceptWater();
+        System.out.println("Pump steps twice after repair");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: The pump to test if it functions correctly after a repair");
+        System.out.println("p1 and p2: The two pipes connected to the pump");
+        System.out.println("pe1: The PipeEnd the pump extracts water from");
+        System.out.println("pe2: The PipeEnd where the water is expected upon pumping");
 
+        Skeleton.LogOn();
+        pump.Repair();
+        pump.Step();
+        pump.Step();
+    }
 
+    /**
+     * Ez a teszt egy üres cső lecsatolásának a helyes működését ellenőrzi a pumpáról.
+     */
+    public static void DisconnectEmptyPipeFromPump() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
 
+        pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
+
+        Pipe p = new Pipe(pump);
+        Skeleton.AddObject(p, "p");
+
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+
+        PipeEnd pe = p.GetEnds().get(0);
+        Skeleton.AddObject(pe, "pe");
+
+        m.Move(pump);
+
+        System.out.println("Tester disconnects empty pipe from Pump");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: The pump the pipe is disconnected from");
+        System.out.println("p: The pipe which will be disconnected");
+        System.out.println("pe: The end of the pipe connected to pump");
+        System.out.println("m: The mechanic which performs the operations");
+
+        Skeleton.LogOn();
+        m.DisconnectPipe(pe);
+        pe.RemoveWater();
+
+    }
 
 }
+
