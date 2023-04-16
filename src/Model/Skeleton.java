@@ -100,7 +100,4 @@ public  class Skeleton {
     public static void ClearMap() {
         hm.clear();
     }
-
-
-
 }

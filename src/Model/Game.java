@@ -14,9 +14,7 @@ public class Game {
      * Getter, mely visszaadja a szabotőrök "vízgyűjtőjét"
      * @return referencia a szabotőrök vízgyüjtőjére
      */
-    public static Pool getSaboteurPool() {
-        return saboteurPool;
-    }
+    public static Pool getSaboteurPool() { return saboteurPool; }
 
     /**
      * Getter, mely visszaadja a szerelők "vízgyűjtőjét"

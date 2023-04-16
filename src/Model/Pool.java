@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Medence, amiben a víz tárolódik.
+ * Felelőssége: Képes tárolni az érkezett vizet.
+ */
 public class Pool {
     /**
      * A Pool által tárolt víz mennyisége.
@@ -14,5 +18,4 @@ public class Pool {
         amount++;
         Skeleton.End();
     }
-
 }

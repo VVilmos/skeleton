@@ -8,12 +8,20 @@ import java.util.List;
  */
 public class Cistern extends Node {
     /**
+     * Konstruktor
+     */
+    public Cistern() {
+        Skeleton.CtorStart("Cistern()");
+        Skeleton.End();
+    }
+
+    /**
      * A ciszterna lép az ütem elején
      * Működése: minden ütembe a bekötött csövekből vizet próbál szívni
      * Ha kap vizet az egyik csőből, akkor megnöveli a játékban játszó szerelők csapatának összesen szerzett vízmennyiségét
      */
     @Override
-    public void Step() {  //pontadas?
+    public void Step() {
         Skeleton.Start(this, "Step()");
         for (PipeEnd pe : pipeEnds)  {
             if (pe != null) {
@@ -32,11 +40,12 @@ public class Cistern extends Node {
     public PipeEnd MakePipe() {
         Skeleton.Start(this, "MakePipe()");
 
-        Skeleton.CtorStart("Pipe(" + Skeleton.GetObjectName(this) + ") newpip");
-        Pipe newpip = new Pipe(this);  //ezt nem kene hozzaadni a hashMap-hez?
-        Skeleton.End();
-        Skeleton.AddObject(newpip, "newpip");
-        List<PipeEnd> ends = newpip.GetEnds();
+        Pipe newPipe = new Pipe(this);
+        Skeleton.AddObject(newPipe, "newPipe");
+
+        List<PipeEnd> ends = newPipe.GetEnds();
+        Skeleton.AddObject(ends.get(0), "newEnd1");
+        Skeleton.AddObject(ends.get(1), "newEnd2");
 
         Skeleton.End();
         Skeleton.PrintReturn(Skeleton.GetObjectName(ends.get(1)));
@@ -49,9 +58,10 @@ public class Cistern extends Node {
      */
     public Pump MakePump() {
         Skeleton.Start(this, "MakePump()");
-        Skeleton.CtorStart("Pump() newPump");
+
         Pump newPump = new Pump();
-        Skeleton.End();
+        Skeleton.AddObject(newPump, "newPump");
+
         Skeleton.End();
         Skeleton.PrintReturn("newPump");
         return newPump;

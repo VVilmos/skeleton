@@ -31,31 +31,30 @@ public class Mechanic extends Player{
     }
 
     /**
-     * ???
+     * Lerak egy pumpát a csőre, amin áll.
      */
     public void PlacePump() {
         Skeleton.Start(this, "PlacePump()");
-        if(holdingPumps.size() > 0){
-            List<Node> neighbours = new ArrayList<>(); //on szomszedos Node-jai
-            neighbours.add(on.GetEnds().get(0).GetAttachedNode());
-            neighbours.add(on.GetEnds().get(1).GetAttachedNode());
-            Pipe newPipe = on.Cut();
-            List<PipeEnd> onEnds = on.GetEnds();
-            PipeEnd onFreeEnd = null; //annak a csonek a szabad vege, amin allunk
-            if(newPipe != null && onEnds != null){
-                for(int i = 0; i < 2; i++){ //vegigmegyunk a ket vegen az on csonek
-                    if(onEnds.get(i).GetAttachedNode() == null){ //tehat ha szabad a vege
-                        onFreeEnd = onEnds.get(i); //akkor ez lesz az egyik, amit majd csatlakoztatni kell
-                    }
-                }
-                List<PipeEnd> newEnds = newPipe.GetEnds();
-                Pump pump = holdingPumps.get(0);
-                holdingPumps.remove(0);
-                pump.AddPipe(newEnds.get(0));
-                pump.AddPipe(onFreeEnd);
-                neighbours.get(1).AddPipe(newEnds.get(1));
-            }
+        if(holdingPumps.size() == 0) {
+            Skeleton.End();
+            return;
         }
+
+        Pipe newPipe = on.Cut();
+        Skeleton.LogOff();
+        Skeleton.AddObject(newPipe, "newPipe");
+        Skeleton.AddObject(newPipe.GetEnds().get(0), "newEnd1");
+        Skeleton.AddObject(newPipe.GetEnds().get(1), "newEnd2");
+        Skeleton.LogOn();
+
+        List<PipeEnd> ends = on.GetEnds();
+        ends.get(1).ConnectNode(holdingPumps.get(0));
+
+        newPipe.GetEnds().get(1).ConnectNode(holdingPumps.get(0));
+
+        Move(holdingPumps.get(0));
+        holdingPumps.remove(0);
+
         Skeleton.End();
     }
 
@@ -66,10 +65,8 @@ public class Mechanic extends Player{
      */
     public void PickupPump() {
         Skeleton.Start(this, "PickUpPump()");
-        Pump newPump = on.MakePump();
-        holdingPumps.add(newPump);
-        Skeleton.AddObject(newPump, "newPump");
-        Skeleton.PrintReturn("newPump");
+        Pump p = on.MakePump();
+        holdingPumps.add(p);
         Skeleton.End();
     }
 
@@ -96,6 +93,4 @@ public class Mechanic extends Player{
         on.Patch();
         Skeleton.End();
     }
-
-
 }

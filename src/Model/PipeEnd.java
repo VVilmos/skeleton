@@ -95,6 +95,5 @@ public class PipeEnd {
         Skeleton.End();
         Skeleton.PrintReturn(Skeleton.GetObjectName(this.node));
         return this.node;
-
     }
 }
