@@ -8,26 +8,36 @@ public class Pipe extends Element{
     private boolean isBroken = false;
     private boolean hasWater = false;
     private List<PipeEnd> ends = new ArrayList<>();
+
     private static int count = 0;
     public static void ResetCounter() {count = 0;}
 
+
+
     public Pipe(Node node) {            //itt ki kéne találni, hogyan logoljuk a konstruktort / egyáltalán kell-e
         count++;
+       // Skeleton.CtorStart("PipeEnd(" + Skeleton.GetObjectName(this) + ") end" + count + "1");
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "1");
         PipeEnd end1 = new PipeEnd(this);
+        Skeleton.End();
+
         Skeleton.AddObject(end1, "end" + count + "1");
         node.AddPipe(end1);
+
+        Skeleton.CtorStart("PipeEnd(newpip) end" + count + "2");
         PipeEnd end2 = new PipeEnd(this);
         Skeleton.AddObject(end2, "end" + count + "2");
         ends.add(end1);
         ends.add(end2);
+        Skeleton.End();
     }
 
-    public void Leak() {
+    public void Leak() {  //pontadas?
         Skeleton.Start(this, "Leak()");
         isBroken = true;
         if (hasWater) {
             Game.getSaboteurPool().AddWater();
-            hasWater = false;
+            hasWater =false;
         }
         Skeleton.End();
     }
@@ -87,12 +97,11 @@ public class Pipe extends Element{
     public Pipe Cut() {return null;}
 
     public List<PipeEnd> GetEnds() {
-        Skeleton.Start(this, "GetEnds");
+        Skeleton.Start(this, "GetEnds()");
         Skeleton.End();
         Skeleton.PrintReturn("ends");
         return ends;
     }
-
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
