@@ -407,7 +407,9 @@ public class Tester {
         System.out.println("pe2: The PipeEnd where the water is expected upon pumping");
 
         Skeleton.LogOn();
-
+        pump.Step();
+        p1.AcceptWater();
+        pump.Step();
     }
 
     /**
