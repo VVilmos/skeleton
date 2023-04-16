@@ -28,12 +28,12 @@ public class PipeEnd {
      * Getter a csővéghez tartozó csőre.
      * @return Visszatéríti a csövet, aminek ez a csővég a vége.
      */
-    public Element GetOwnPipe() {  //kiiratas?
+    public Pipe GetOwnPipe() {
         Skeleton.Start(this, "GetOwnPipe()");
-        Pipe ownPipe = this.pipe;
+
         Skeleton.End();
         Skeleton.PrintReturn(Skeleton.GetObjectName(this.pipe));
-        return pipe;               //miert nem Pipe-al tér vissza
+        return pipe;
     }
 
     /**

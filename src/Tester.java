@@ -41,7 +41,6 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
-        pip.AcceptPlayer(m);
         List<PipeEnd> ends = pip.GetEnds();
         pu.Switch(ends.get(0), null);
 
@@ -154,13 +153,15 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on1);
-        on1.AcceptPlayer(m);
 
         Pipe to2 = new Pipe(to1);
         Skeleton.AddObject(to2, "to2");
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("to1: \non1: \n m: \nto2: ");
+        System.out.println("to1: Pump where Mechanic steps first " +
+                "\non1: Pipe where Mechanic is on " +
+                "\nm: Mechanic, who will step " +
+                "\nto2: Pipe where mechanic steps second");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -168,7 +169,7 @@ public class Tester {
         m.Move(to2);
     }
 
-    public static void ConnectPipeToPump() {
+    public static void ConnectPipeToPump(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump pu = new Pump();
@@ -180,19 +181,21 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on);
-        on.AcceptPlayer(m);
 
         m.SetHoldingPipeEnd(pip.GetEnds().get(1));
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("pu: \npip: \non: \nm: ");
+        System.out.println("pu: Pump, where pip's first pipeEnd is connected " +
+                "\npip: The ownPipe of holdingPipeEnd " +
+                "\non: Pump, where Mechanic is on and where holdingPipeEnd will be connected " +
+                "\nm: Mechanic, who will connect holdingPipeEnd to on");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
         m.ConnectPipe();
     }
 
-    public static void StepOnCisternAndPicksUpPipe() {
+    public static void StepOnCisternAndPicksUpPipe(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pipe.ResetCounter();
@@ -203,10 +206,11 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on);
-        on.AcceptPlayer(m);
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("to: \non: \nm: ");
+        System.out.println("to: Cistern, where Mechanic will step" +
+                "\non: Pipe, where Mechanic is on" +
+                "\nm: Mechanic, who will step on to and pick up Pipe");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -214,7 +218,7 @@ public class Tester {
         m.PickupPipe();
     }
 
-    public static void BreakPipeAndItAcceptsWater() {
+    public static void BreakPipeAndItAcceptsWater(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
@@ -228,10 +232,12 @@ public class Tester {
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
-        on.AcceptPlayer(s);
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("p1: \non: \ns: \npool: ");
+        System.out.println("p1: Pump, where 'on' is connected to" +
+                "\non: Pipe, where Saboteur is on" +
+                "\ns: Saboteur, who will break Pipe 'on' " +
+                "\nsaboteurPool: Pool that represents all water Saboteurs collect");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -252,8 +258,6 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pi = new Pipe(pu);
         Skeleton.AddObject(pi, "pi");
-        /*pi.AcceptPlayer(m1);
-        pu.AcceptPlayer(m2);*/
         m1.Move(pi);
         m2.Move(pu);
 
@@ -269,7 +273,6 @@ public class Tester {
         m1.Move(pu);
     }
 
-    //13
     public static void GetPumpAtCistern() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
@@ -293,8 +296,7 @@ public class Tester {
         m.PickupPump();
     }
 
-    //14
-    public static void BreakPumpAndTwoStep() {
+    public static void BreakPumpAndTwoStep(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump pu = new Pump();
