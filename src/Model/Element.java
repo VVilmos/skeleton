@@ -24,7 +24,7 @@ public abstract class Element {
     public Pump MakePump() {return null;} //ez igy jo-e?
     public PipeEnd MakePipe() {return null;}
     public Pipe Cut() {return null;}
-    public void Leak(Pool pool) {}
+    public void Leak() {}
     public void Patch() {}
     public List<PipeEnd> GetEnds() {return null;}
 

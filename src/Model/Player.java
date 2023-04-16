@@ -63,7 +63,7 @@ public class Player {
     }
 
     public void DisconnectPipe(PipeEnd p){
-        Skeleton.Start(this, "DisconnectPipe()");
+        Skeleton.Start(this, "DisconnectPipe(" + Skeleton.GetObjectName(p) + ")");
         on.RemovePipe(p);
 
       holdingPipeEnd = p;
