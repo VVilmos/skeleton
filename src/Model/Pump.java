@@ -30,6 +30,14 @@ public class Pump extends Node{
     private boolean tankFull;
 
     /**
+     * Konstruktor
+     */
+    public Pump() {
+        Skeleton.CtorStart("Pump()");
+        Skeleton.End();
+    }
+
+    /**
      * A pumpa lép az ütem elején
      * Működése: minden lépésnél a kiválasztott bemeneti csőből a kimeneti csőbe vizet mozgat
      * Elvárt működése függ a működési állapotától és az átmeneti tároló állapotától

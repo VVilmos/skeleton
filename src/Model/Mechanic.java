@@ -8,6 +8,14 @@ import java.util.List;
  */
 public class Mechanic extends Player{
     /**
+     * Konstruktor
+     */
+    public Mechanic() {
+        Skeleton.CtorStart("Mechanic()");
+        Skeleton.End();
+    }
+
+    /**
      * A pumpák, amelyeket a szerelő éppen magánál tart.
      */
     private List<Pump> holdingPumps = new ArrayList<>();

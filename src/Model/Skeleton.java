@@ -48,6 +48,19 @@ public  class Skeleton {
     }
 
     /**
+     * A konstruktorok naplózása/kiírása
+     * @param m a meghívott konstruktor és az újonna létrehozott objektum neve
+     */
+    public static void CtorStart(String m) {
+        if (log) {
+            System.out.println();
+            for (int i = 0; i < indent; i++) System.out.print("\t");
+            System.out.print("<<create>> " + m);
+            indent++;
+        }
+    }
+
+    /**
      * Függvényvisszatérés jelzése az osztálynak
      */
     public static void End() {
@@ -65,7 +78,6 @@ public  class Skeleton {
             System.out.print(value+ " ");
         }
     }
-
 
     /**
      * Új objektum felvétele a HashMap-be
@@ -87,5 +99,4 @@ public  class Skeleton {
     public static void ClearMap() {
         hm.clear();
     }
-
 }

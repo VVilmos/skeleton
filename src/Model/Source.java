@@ -6,6 +6,14 @@ package Model;
  */
 public class Source extends Node{
     /**
+     * Konstruktor
+     */
+    public Source() {
+        Skeleton.CtorStart("Source()");
+        Skeleton.End();
+    }
+
+    /**
      * Lépteti a forrást, amely ezáltal kilöki magából a vizet.
      */
     @Override

@@ -8,6 +8,14 @@ import java.util.List;
  */
 public class Cistern extends Node {
     /**
+     * Konstruktor
+     */
+    public Cistern() {
+        Skeleton.CtorStart("Cistern()");
+        Skeleton.End();
+    }
+
+    /**
      * A ciszterna lép az ütem elején
      * Működése: minden ütembe a bekötött csövekből vizet próbál szívni
      * Ha kap vizet az egyik csőből, akkor megnöveli a játékban játszó szerelők csapatának összesen szerzett vízmennyiségét

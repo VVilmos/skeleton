@@ -20,7 +20,9 @@ public class PipeEnd {
      * @param p a cső, aminek a vége.
      */
     public PipeEnd(Pipe p) {
+        Skeleton.CtorStart("PipeEnd(" + Skeleton.GetObjectName(p) + ")");
         this.pipe = p;
+        Skeleton.End();
     }
 
     /**

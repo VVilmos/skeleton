@@ -38,7 +38,10 @@ public class Pipe extends Element{
      * @param node a node, amihez kezdetben kapcsolva van.
      */
     public Pipe(Node node) {
+        Skeleton.CtorStart("Pipe()");
         count++;
+
+        Skeleton.AddObject(this, "newPipe");
 
         PipeEnd end1 = new PipeEnd(this);
         Skeleton.AddObject(end1, "end" + count + "1");
@@ -49,6 +52,7 @@ public class Pipe extends Element{
 
         ends.add(end1);
         ends.add(end2);
+        Skeleton.End();
     }
 
     /**
