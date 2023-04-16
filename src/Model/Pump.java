@@ -63,8 +63,8 @@ public class Pump extends Node{
     public void Switch(PipeEnd from, PipeEnd to) {
         Skeleton.Start(this, "Switch(" + Skeleton.GetObjectName(from) + "," + Skeleton.GetObjectName(to) + ")");
         for (int i = 0; i < pipeEnds.length; i++) {
-            if (pipeEnds[i] != null && pipeEnds[i].equals(from)) inPipe = i;
-            if (pipeEnds[i] != null && pipeEnds[i].equals(to)) outPipe = i;
+            if (pipeEnds[i] != null && pipeEnds[i] == from) inPipe = i;
+            if (pipeEnds[i] != null && pipeEnds[i] == to) outPipe = i;
         }
         Skeleton.End();
     }
