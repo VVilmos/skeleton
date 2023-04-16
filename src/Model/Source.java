@@ -1,6 +1,6 @@
 package Model;
 
-public class Source extends Node{
+public abstract class Source extends Node{
     @Override
     public void Step() {
         Skeleton.Start(this, "Step()");
