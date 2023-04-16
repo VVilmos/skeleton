@@ -80,7 +80,8 @@ public class PipeEnd {
      * Lecsatlakoztatja a csővéget a felkapcsolt {@link Node}-ról.
      */
     public void DisconnectFromNode(){  //pontadas?
-
+        Skeleton.Start(this, "DisconnectFromNode()");
+        node = null;
     }
 
     /**

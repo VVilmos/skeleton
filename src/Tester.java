@@ -4,6 +4,27 @@ import java.util.List;
 
 public class Tester {
 
+    /**
+     * Tesztekhez felhasznált pumpa referencia
+     */
+    private static Pump pump;
+    /**
+     * Tesztekhez felhasznált cső referencia
+     */
+    private static Pipe p1;
+    /**
+     * Tesztekhez felhasznált cső referencia
+     */
+    private static Pipe p2;
+    /**
+     * Tesztekhez felhasznált csővég referencia
+     */
+    private static PipeEnd pe1;
+    /**
+     * Tesztekhez felhasznált csővég referencia
+     */
+    private static PipeEnd pe2;
+
     public static void LeakingPipeRepair() {
         Skeleton.ClearMap();
         //init a komm diagram alapján
@@ -34,7 +55,7 @@ public class Tester {
 
     }
 
-    public static void PlayerSteps2(){
+    public static void PlayerSteps2() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump to1 = new Pump();
@@ -58,7 +79,7 @@ public class Tester {
         m.Move(to2);
     }
 
-    public static void ConnectPipeToPump(){
+    public static void ConnectPipeToPump() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump pu = new Pump();
@@ -82,7 +103,7 @@ public class Tester {
         m.ConnectPipe();
     }
 
-    public static void StepOnCisternAndPicksUpPipe(){
+    public static void StepOnCisternAndPicksUpPipe() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Cistern to = new Cistern();
@@ -103,7 +124,7 @@ public class Tester {
         m.PickupPipe();
     }
 
-    public static void BreakPipeAndItAcceptsWater(){
+    public static void BreakPipeAndItAcceptsWater() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump p1 = new Pump();
@@ -112,7 +133,7 @@ public class Tester {
         Skeleton.AddObject(on, "on");
         on.Patch(); //kell-e?
         on.AcceptWater(null);
-        
+
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
@@ -128,10 +149,10 @@ public class Tester {
         s.BreakPipe(pool);
         on.AcceptWater(pool);
     }
-        
-        
+
+
     //12
-    public static void SecondStepOnPump(){
+    public static void SecondStepOnPump() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Mechanic m1 = new Mechanic();
@@ -182,7 +203,7 @@ public class Tester {
     }
 
     //14
-    public static void BreakPumpAndTwoStep(){
+    public static void BreakPumpAndTwoStep() {
         Skeleton.ClearMap();
         Skeleton.LogOff();
         Pump pu = new Pump();
@@ -203,10 +224,157 @@ public class Tester {
         pu.Step();
     }
 
+    /**
+     * A csőhálózat eldugulásának a tesztelését végző függvény
+     */
+    public static void ClogPipeNetwork() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
 
+        Pump pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
 
+        Pipe p1 = new Pipe(pump);
+        Skeleton.AddObject(p1, "p1");
 
+        Pipe p2 = new Pipe(pump);
+        Skeleton.AddObject(p2, "p2");
 
+        List<PipeEnd> firstPipeEnds = p1.GetEnds();
 
+        PipeEnd pe1 = firstPipeEnds.get(0);
+        Skeleton.AddObject(pe1, "pe1");
+
+        PipeEnd pe2 = firstPipeEnds.get(1);
+        Skeleton.AddObject(pe2, "pe2");
+
+        List<PipeEnd> secondPipeEnds = p2.GetEnds();
+
+        PipeEnd pe3 = secondPipeEnds.get(0);
+        Skeleton.AddObject(pe3, "pe3");
+
+        pump.Switch(pe2, pe3);
+
+        System.out.println("Pipe network clogs.");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: A pump which moves water through the network");
+        System.out.println("p1 and p2: The pipes this simple network consists of");
+        System.out.println("pe1: The input of this network which the test fills up with water");
+        System.out.println("pe2 and pe3: The two PipeEnds the pump if connected to");
+        System.out.println("The following functions are called during this test:");
+        Skeleton.LogOn();
+        pe1.AcceptWater();
+        pump.Step();
+        pe1.AcceptWater();
+        pump.Step();
+        pe1.AcceptWater();
+        pump.Step();
+        pe1.AcceptWater();
+    }
+
+    /**
+     * Inicializáló segédfüggvény a {@link #WorkingPumpPumps()}, {@link #StepPumpTwiceAfterRepair()} tesztekhez
+     */
+    private static void initPumpWithTwoPipes() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+
+        pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
+
+        p1 = new Pipe(pump);
+        Skeleton.AddObject(p1, "p1");
+
+        p2 = new Pipe(pump);
+        Skeleton.AddObject(p2, "p2");
+
+        List<PipeEnd> p1Ends = p1.GetEnds();
+        List<PipeEnd> p2Ends = p2.GetEnds();
+
+        pe1 = p1Ends.get(0);
+        Skeleton.AddObject(pe1, "pe1");
+        pe2 = p2Ends.get(0);
+        Skeleton.AddObject(pe2, "pe2");
+
+        pump.Switch(pe1, pe2);
+
+    }
+
+    /**
+     * Egy működő pumpa kipróbálását megvalósító függvény
+     */
+    public static void WorkingPumpPumps() {
+        initPumpWithTwoPipes();
+
+        pe1.AcceptWater();
+
+        System.out.println("Working Pump pumps");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: The pump to test its functionality");
+        System.out.println("p1 and p2: The two pipes connected to the pump");
+        System.out.println("pe1: The PipeEnd the pump extracts water from");
+        System.out.println("pe2: The PipeEnd where the water is expected upon pumping");
+
+        Skeleton.LogOn();
+
+        pump.Step();
+        p1.AcceptWater(null);
+        pump.Step();
+
+    }
+
+    /**
+     * A pumpa megjavítása után kétszeri léptetéssel ellenőrzi a helyes működést.
+     */
+    public static void StepPumpTwiceAfterRepair() {
+        initPumpWithTwoPipes();
+        pump.BreakPump();
+        p1.AcceptWater(null);
+        System.out.println("Pump steps twice after repair");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: The pump to test if it functions correctly after a repair");
+        System.out.println("p1 and p2: The two pipes connected to the pump");
+        System.out.println("pe1: The PipeEnd the pump extracts water from");
+        System.out.println("pe2: The PipeEnd where the water is expected upon pumping");
+
+        Skeleton.LogOn();
+        pump.Repair();
+        pump.Step();
+        pump.Step();
+    }
+
+    /**
+     * Ez a teszt egy üres cső lecsatolásának a helyes működését ellenőrzi a pumpáról.
+     */
+    public static void DisconnectEmptyPipeFromPump() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+
+        pump = new Pump();
+        Skeleton.AddObject(pump, "pump");
+
+        Pipe p = new Pipe(pump);
+        Skeleton.AddObject(p, "p");
+
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+
+        PipeEnd pe = p.GetEnds().get(0);
+        Skeleton.AddObject(pe, "pe");
+
+        m.Move(pump);
+
+        System.out.println("Tester disconnects empty pipe from Pump");
+        System.out.println("This test uses the following objects:");
+        System.out.println("pump: The pump the pipe is disconnected from");
+        System.out.println("p: The pipe which will be disconnected");
+        System.out.println("pe: The end of the pipe connected to pump");
+        System.out.println("m: The mechanic which performs the operations");
+
+        Skeleton.LogOn();
+        m.DisconnectPipe(pe);
+        pe.RemoveWater();
+
+    }
 
 }
