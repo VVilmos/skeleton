@@ -14,12 +14,25 @@ public class PipeEnd {
     public PipeEnd(Pipe p) {
         this.pipe = p;
     }
-    public Element GetOwnPipe() {
-        return pipe;
+    public Element GetOwnPipe() {  //kiiratas?
+        Skeleton.Start(this, "GetOwnPipe()");
+        Pipe ownPipe = this.pipe;
+        Skeleton.End();
+        Skeleton.PrintReturn("ownPipe");
+        return pipe;               //miert nem Pipe-al tér vissza
     }
 
     public boolean AcceptWater() {
-        return pipe.AcceptWater();
+        Skeleton.Start(this, "AcceptWater()");
+        boolean accepted = pipe.AcceptWater(null);
+        Skeleton.End();
+        if(accepted){
+            Skeleton.PrintReturn("true");
+        }
+        else{
+            Skeleton.PrintReturn("false");
+        }
+        return accepted;
     }
 
     public boolean RemoveWater() {
@@ -28,13 +41,24 @@ public class PipeEnd {
         Skeleton.End();
         if (accepted) Skeleton.PrintReturn("true");
         else Skeleton.PrintReturn("false");
-       return accepted;
+        return accepted;
     }
 
     public void ConnectNode(Node node) {
         Skeleton.Start(this, "ConnectNode(" + Skeleton.GetObjectName(node) + ")");
-        boolean accepted = node.AddPipe(this);
         Skeleton.End();
-        if (accepted) this.node = node;
+        this.node = node;
+    }
+
+    public void DisconnectFromNode(){  //pontadas?
+
+    }
+
+    public Node GetAttachedNode(){
+        Skeleton.Start(this, "GetAttachedNode()");
+        Skeleton.End();
+        Skeleton.PrintReturn("node");
+        return this.node;
+
     }
 }
