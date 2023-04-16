@@ -33,8 +33,11 @@ public class PipeEnd {
 
     public void ConnectNode(Node node) {
         Skeleton.Start(this, "ConnectNode(" + Skeleton.GetObjectName(node) + ")");
-        boolean accepted = node.AddPipe(this);
         Skeleton.End();
-        if (accepted) this.node = node;
+        this.node = node;
+    }
+
+    public Node getNode(){
+        return node;
     }
 }

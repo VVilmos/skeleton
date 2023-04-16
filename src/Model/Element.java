@@ -13,14 +13,14 @@ public abstract class Element {
         return false;
     }
 
-   public abstract boolean AcceptPlayer(Player p);
+    public abstract boolean AcceptPlayer(Player p);
     public abstract List<Element> GetNeighbours();
 
-    void RemovePlayer(Player p) {
+    public void RemovePlayer(Player p) {
         players.remove(p);
     }
 
-    public boolean AddPipe(PipeEnd pe) { return true;}
+    public boolean AddPipe(PipeEnd pe) { return false;} //ez itt false
 
     public void RemovePipe(PipeEnd pe) {}
 
@@ -31,6 +31,7 @@ public abstract class Element {
     public Pump MakePump() {return new Pump();}
     public PipeEnd MakePipe() {return null;}
     public Pipe Cut() {return null;}
+    public List<PipeEnd> GetEnds() {return null;}
 
 
 }

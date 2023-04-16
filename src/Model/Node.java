@@ -14,7 +14,7 @@ public abstract class Node extends Element implements ISteppable{
 
     @Override
     public boolean AcceptPlayer(Player p) {
-        Skeleton.Start(this, "AcceptPlayer( " + Skeleton.GetObjectName(p) + ")");
+        Skeleton.Start(this, "AcceptPlayer(" + Skeleton.GetObjectName(p) + ")");
         players.add(p);
 
         Skeleton.End();
@@ -36,10 +36,13 @@ public abstract class Node extends Element implements ISteppable{
 
     public boolean AddPipe(PipeEnd pe)  {
         Skeleton.Start(this, "AddPipe(" + Skeleton.GetObjectName(pe) + ")");
-        if (pipeEnds.length <= 8) {
+        if (pipeEnds.length <= 8) { //😎
             int i = 0;
             while (pipeEnds[i] != null) {i++;}
             pipeEnds[i] = pe;
+
+            pe.ConnectNode(this);
+
             Skeleton.End();
             Skeleton.PrintReturn("true");
             return true;
