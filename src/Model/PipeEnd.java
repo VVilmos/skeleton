@@ -14,17 +14,17 @@ public class PipeEnd {
     public PipeEnd(Pipe p) {
         this.pipe = p;
     }
-    public Element GetOwnPipe() {  //kiiratas?
+    public Element GetOwnPipe() {  //miert nem Pipe-al tér vissza
         Skeleton.Start(this, "GetOwnPipe()");
-        Pipe ownPipe = this.pipe;
+        //Pipe ownPipe = this.pipe;
         Skeleton.End();
-        Skeleton.PrintReturn("ownPipe");
-        return pipe;               //miert nem Pipe-al tér vissza
+        Skeleton.PrintReturn(Skeleton.GetObjectName(this.pipe));
+        return this.pipe;
     }
 
     public boolean AcceptWater() {
         Skeleton.Start(this, "AcceptWater()");
-        boolean accepted = pipe.AcceptWater(null);
+        boolean accepted = pipe.AcceptWater();
         Skeleton.End();
         if(accepted){
             Skeleton.PrintReturn("true");
@@ -50,14 +50,17 @@ public class PipeEnd {
         this.node = node;
     }
 
-    public void DisconnectFromNode(){  //pontadas?
-
+    public void DisconnectFromNode(){
+        Skeleton.Start(this, "DisconnectFromNode()");
+        boolean isFull = pipe.RemoveWater();
+        if (isFull) Game.getSaboteurPool().AddWater();
+        Skeleton.End();
     }
 
     public Node GetAttachedNode(){
         Skeleton.Start(this, "GetAttachedNode()");
         Skeleton.End();
-        Skeleton.PrintReturn("node");
+        Skeleton.PrintReturn(Skeleton.GetObjectName(this.node));
         return this.node;
     }
 }

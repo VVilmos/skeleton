@@ -12,13 +12,13 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
-        pip.Leak(null);
+        pip.Leak();
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
-        pip.AcceptPlayer(m);
         List<PipeEnd> ends = pip.GetEnds();
         pu.Switch(ends.get(0), null);
+
 
         //létrehozott objektumok és állapotuk feltüntetése a konzolon
         System.out.println("\nThe test will run on the following objects:");
@@ -29,9 +29,34 @@ public class Tester {
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
         m.RepairPipe();
-        pip.AcceptWater(null);
+        pip.AcceptWater();
         pu.Step();
 
+    }
+
+    public static void DisconnectingFullPipe() {
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+
+        Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
+        Pump pu = new Pump();
+        Skeleton.AddObject(pu, "pu");
+        Pipe pip = new Pipe(pu);
+        Skeleton.AddObject(pip, "pip");
+        pip.AcceptWater();
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        m.Move(pu);
+        PipeEnd end1 = pip.GetEnds().get(0);
+
+        //létrehozott objektumok és állapotuk feltüntetése a konzolon
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("pu:Pump with one pipe connected to it \npip:Full Pipe connected to Pump pu \n" +
+                "end1: the connected end of Pipe pip \nm: Mechanic standing on Pump pu \nsaboteurPool: Pool that represents all water Saboteurs collect");
+
+        //Tester függvényhívásai
+        Skeleton.LogOn();
+        m.DisconnectPipe(end1);
     }
 
     public static void PlayerSteps2(){
@@ -44,13 +69,15 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on1);
-        on1.AcceptPlayer(m);
 
         Pipe to2 = new Pipe(to1);
         Skeleton.AddObject(to2, "to2");
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("to1: \non1: \n m: \nto2: ");
+        System.out.println("to1: Pump where Mechanic steps first " +
+                "\non1: Pipe where Mechanic is on " +
+                "\nm: Mechanic, who will step " +
+                "\nto2: Pipe where mechanic steps second");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -70,12 +97,14 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on);
-        on.AcceptPlayer(m);
 
         m.SetHoldingPipeEnd(pip.GetEnds().get(1));
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("pu: \npip: \non: \nm: ");
+        System.out.println("pu: Pump, where pip's first pipeEnd is connected " +
+                "\npip: The ownPipe of holdingPipeEnd " +
+                "\non: Pump, where Mechanic is on and where holdingPipeEnd will be connected " +
+                "\nm: Mechanic, who will connect holdingPipeEnd to on");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -92,10 +121,11 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(on);
-        on.AcceptPlayer(m);
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("to: \non: \nm: ");
+        System.out.println("to: Cistern, where Mechanic will step" +
+                "\non: Pipe, where Mechanic is on" +
+                "\nm: Mechanic, who will step on to and pick up Pipe");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
@@ -106,27 +136,29 @@ public class Tester {
     public static void BreakPipeAndItAcceptsWater(){
         Skeleton.ClearMap();
         Skeleton.LogOff();
+
+        Skeleton.AddObject(Game.getSaboteurPool(), "saboteurPool");
         Pump p1 = new Pump();
         Skeleton.AddObject(p1, "p1");
         Pipe on = new Pipe(p1);
         Skeleton.AddObject(on, "on");
         on.Patch(); //kell-e?
-        on.AcceptWater(null);
+        on.AcceptWater();
 
         Saboteur s = new Saboteur();
         Skeleton.AddObject(s, "s");
         s.Move(on);
-        on.AcceptPlayer(s);
-        Pool pool = new Pool();
-        Skeleton.AddObject(pool, "pool");
 
         System.out.println("\nThe test will run on the following objects:");
-        System.out.println("p1: \non: \ns: \npool: ");
+        System.out.println("p1: Pump, where 'on' is connected to" +
+                "\non: Pipe, where Saboteur is on" +
+                "\ns: Saboteur, who will break Pipe 'on' " +
+                "\nsaboteurPool: Pool that represents all water Saboteurs collect");
 
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
-        s.BreakPipe(pool);
-        on.AcceptWater(pool);
+        s.BreakPipe();
+        on.AcceptWater();
     }
 
     public static void SecondStepOnPump(){
@@ -141,9 +173,7 @@ public class Tester {
         Pipe pi = new Pipe(pu);
         Skeleton.AddObject(pi, "pi");
         m1.Move(pi);
-        pi.AcceptPlayer(m1);
         m2.Move(pu);
-        pu.AcceptPlayer(m2);
 
         System.out.println("\nSecond person tries to step on Pump");
         System.out.println("\nThe test will run on the following objects:");
@@ -167,7 +197,6 @@ public class Tester {
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pi);
-        pi.AcceptPlayer(m);
 
         System.out.println("\nTester steps on Cistern and picks up Pump");
         System.out.println("\nThe test will run on the following objects:");

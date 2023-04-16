@@ -68,6 +68,7 @@ public abstract class Node extends Element implements ISteppable{
     public PipeEnd[] GetPipeEnds() {
         Skeleton.Start(this, "GetPipeEnds()");
         Skeleton.End();
+        Skeleton.PrintReturn("pipeEnds");
         return pipeEnds;
     }
 

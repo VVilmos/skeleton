@@ -7,25 +7,27 @@ public class Pipe extends Element{
 
     private boolean isBroken = false;
     private boolean hasWater = false;
-
     private List<PipeEnd> ends = new ArrayList<>();
+    private static int count = 0;
+    public static void ResetCounter() {count = 0;}
 
     public Pipe(Node node) {            //itt ki kéne találni, hogyan logoljuk a konstruktort / egyáltalán kell-e
+        count++;
         PipeEnd end1 = new PipeEnd(this);
-        Skeleton.AddObject(end1, "end1");
+        Skeleton.AddObject(end1, "end" + count + "1");
         node.AddPipe(end1);
         PipeEnd end2 = new PipeEnd(this);
-        Skeleton.AddObject(end2, "end2");
+        Skeleton.AddObject(end2, "end" + count + "2");
         ends.add(end1);
         ends.add(end2);
     }
 
-    public void Leak(Pool sP) {  //pontadas?
+    public void Leak() {
         Skeleton.Start(this, "Leak()");
         isBroken = true;
-        hasWater = false;
-        if(sP != null){
-            sP.AddWater();
+        if (hasWater) {
+            Game.getSaboteurPool().AddWater();
+            hasWater = false;
         }
         Skeleton.End();
     }
@@ -36,7 +38,7 @@ public class Pipe extends Element{
         Skeleton.End();
     }
 
-    public boolean AcceptWater(Pool pool) {
+    public boolean AcceptWater() {
         Skeleton.Start(this, "AcceptWater()");
         if(hasWater) {
             Skeleton.End();
@@ -44,8 +46,9 @@ public class Pipe extends Element{
             return false;
         }
         hasWater = true;
-        if(isBroken && pool != null){
-            pool.AddWater();
+        if(isBroken){
+            Game.getSaboteurPool().AddWater();
+            hasWater = false;
         }
         Skeleton.End();
         Skeleton.PrintReturn("true");
@@ -89,6 +92,7 @@ public class Pipe extends Element{
         Skeleton.PrintReturn("ends");
         return ends;
     }
+
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Player {
     protected Element on = null;
-
     protected PipeEnd holdingPipeEnd;
 
     public Player(){    }
@@ -61,7 +60,7 @@ public class Player {
     public void DisconnectPipe(PipeEnd p){
         Skeleton.Start(this, "DisconnectPipe()");
         on.RemovePipe(p);
-        SetHoldingPipeEnd(p);  //bekene allitani a holdinPipeEndet?
+        holdingPipeEnd = p;
         Skeleton.End();
     }
 }

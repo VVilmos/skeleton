@@ -2,7 +2,6 @@ package Model;
 
 public class Pump extends Node{
 
-
     private boolean isBroken = false;
     private int inPipe;
     private int outPipe;
@@ -50,6 +49,12 @@ public class Pump extends Node{
     public void FillWaterTank() {
         Skeleton.Start(this, "FillWaterTank()");
         tankFull = true;
+        Skeleton.End();
+    }
+
+    public void RemovePipe(PipeEnd pe) {
+        Skeleton.Start(this, "RemovePipe(" + Skeleton.GetObjectName(pe) + ")");
+        pe.DisconnectFromNode();
         Skeleton.End();
     }
 }
