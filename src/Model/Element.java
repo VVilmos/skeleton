@@ -5,33 +5,27 @@ import java.util.List;
 
 public abstract class Element {
 
-    protected List<Player> players = new ArrayList<>();
-    public void Patch() {
-    }
+    protected List<Player> players = new ArrayList<>();  //a diagramon private
 
-    boolean AcceptWater() {
-        return false;
-    }
-
-    public abstract boolean AcceptPlayer(Player p);
     public abstract List<Element> GetNeighbours();
+    public abstract boolean AcceptPlayer(Player p);
 
     public void RemovePlayer(Player p) {
+        Skeleton.Start(this, "RemovePlayer(" + Skeleton.GetObjectName(p) + ")");
         players.remove(p);
+        Skeleton.End();
     }
-
-    public boolean AddPipe(PipeEnd pe) { return false;} //ez itt false
-
+    
+    public boolean AddPipe(PipeEnd pe) { return false;}   
     public void RemovePipe(PipeEnd pe) {}
-
-    public void Break() {}
+    public void Break() {}  //minek?
     public void Repair() {}
-    public void Leak() {}
     public void Switch(PipeEnd from, PipeEnd to) {}
-    public Pump MakePump() {return new Pump();}
+    public Pump MakePump() {return null;} //ez igy jo-e?
     public PipeEnd MakePipe() {return null;}
     public Pipe Cut() {return null;}
+    public void Leak(Pool pool) {}
+    public void Patch() {}
     public List<PipeEnd> GetEnds() {return null;}
-
 
 }

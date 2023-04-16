@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mechanic extends Player{
-
     private List<Pump> holdingPumps = new ArrayList<>();
 
     public Mechanic(){
@@ -21,14 +20,14 @@ public class Mechanic extends Player{
         Skeleton.Start(this, "PlacePump()");
         if(holdingPumps.size() > 0){
             List<Node> neighbours = new ArrayList<>(); //on szomszedos Node-jai
-            neighbours.add(on.GetEnds().get(0).getNode());
-            neighbours.add(on.GetEnds().get(1).getNode());
+            neighbours.add(on.GetEnds().get(0).GetAttachedNode());
+            neighbours.add(on.GetEnds().get(1).GetAttachedNode());
             Pipe newPipe = on.Cut();
             List<PipeEnd> onEnds = on.GetEnds();
             PipeEnd onFreeEnd = null; //annak a csonek a szabad vege, amin allunk
             if(newPipe != null && onEnds != null){
                 for(int i = 0; i < 2; i++){ //vegigmegyunk a ket vegen az on csonek
-                    if(onEnds.get(i).getNode() == null){ //tehat ha szabad a vege
+                    if(onEnds.get(i).GetAttachedNode() == null){ //tehat ha szabad a vege
                         onFreeEnd = onEnds.get(i); //akkor ez lesz az egyik, amit majd csatlakoztatni kell
                     }
                 }
@@ -51,6 +50,7 @@ public class Mechanic extends Player{
     public void PickupPipe() {
         Skeleton.Start(this, "PickUpPipe()");
         PipeEnd p = on.MakePipe();
+        //SetHoldingPipeEnd(p);
         holdingPipeEnd = p;
         Skeleton.End();
     }
@@ -59,7 +59,6 @@ public class Mechanic extends Player{
         on.Patch();
         Skeleton.End();
     }
-
 
 
 }

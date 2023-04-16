@@ -13,16 +13,20 @@ public class Pipe extends Element{
     public Pipe(Node node) {            //itt ki kéne találni, hogyan logoljuk a konstruktort / egyáltalán kell-e
         PipeEnd end1 = new PipeEnd(this);
         Skeleton.AddObject(end1, "end1");
-        end1.ConnectNode(node);
+        node.AddPipe(end1);
         PipeEnd end2 = new PipeEnd(this);
         Skeleton.AddObject(end2, "end2");
         ends.add(end1);
         ends.add(end2);
     }
 
-    public void Leak() {
+    public void Leak(Pool sP) {  //pontadas?
         Skeleton.Start(this, "Leak()");
-
+        isBroken = true;
+        hasWater = false;
+        if(sP != null){
+            sP.AddWater();
+        }
         Skeleton.End();
     }
 
@@ -32,15 +36,18 @@ public class Pipe extends Element{
         Skeleton.End();
     }
 
-    @Override
-    public boolean AcceptWater() {
+    public boolean AcceptWater(Pool pool) {
         Skeleton.Start(this, "AcceptWater()");
-        Skeleton.End();
-        if (hasWater) {
+        if(hasWater) {
+            Skeleton.End();
             Skeleton.PrintReturn("false");
             return false;
         }
         hasWater = true;
+        if(isBroken && pool != null){
+            pool.AddWater();
+        }
+        Skeleton.End();
         Skeleton.PrintReturn("true");
         return true;
     }
@@ -61,7 +68,6 @@ public class Pipe extends Element{
         return true;
     }
 
-
     public boolean RemoveWater() {
         Skeleton.Start(this, "RemoveWater()");
         if (hasWater) {
@@ -77,12 +83,21 @@ public class Pipe extends Element{
 
     public Pipe Cut() {return null;}
 
-    public List<PipeEnd> GetEnds() {return ends;}
+    public List<PipeEnd> GetEnds() {
+        Skeleton.Start(this, "GetEnds");
+        Skeleton.End();
+        Skeleton.PrintReturn("ends");
+        return ends;
+    }
     public List<Element> GetNeighbours() {
+        Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
         for (PipeEnd e : ends) {
-            neighbours.add(e.GetOwnPipe());
+            neighbours.add(e.GetAttachedNode());
         }
+
+        Skeleton.End();
+        Skeleton.PrintReturn("neighbours");
         return neighbours;
     }
 }

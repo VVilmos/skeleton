@@ -12,7 +12,7 @@ public class Tester {
         Skeleton.AddObject(pu, "pu");
         Pipe pip = new Pipe(pu);
         Skeleton.AddObject(pip, "pip");
-        pip.Leak();
+        pip.Leak(null);
         Mechanic m = new Mechanic();
         Skeleton.AddObject(m, "m");
         m.Move(pip);
@@ -29,11 +29,107 @@ public class Tester {
         System.out.print("\nThe next functions were called during the test:");
         Skeleton.LogOn();
         m.RepairPipe();
-        pip.AcceptWater();
+        pip.AcceptWater(null);
         pu.Step();
 
     }
 
+    public static void PlayerSteps2(){
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pump to1 = new Pump();
+        Skeleton.AddObject(to1, "to1");
+        Pipe on1 = new Pipe(to1);
+        Skeleton.AddObject(on1, "on1");
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        m.Move(on1);
+        on1.AcceptPlayer(m);
+
+        Pipe to2 = new Pipe(to1);
+        Skeleton.AddObject(to2, "to2");
+
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("to1: \non1: \n m: \nto2: ");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        m.Move(to1);
+        m.Move(to2);
+    }
+
+    public static void ConnectPipeToPump(){
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pump pu = new Pump();
+        Skeleton.AddObject(pu, "pu");
+        Pipe pip = new Pipe(pu);
+        Skeleton.AddObject(pip, "pip");
+        Pump on = new Pump();
+        Skeleton.AddObject(on, "on");
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        m.Move(on);
+        on.AcceptPlayer(m);
+
+        m.SetHoldingPipeEnd(pip.GetEnds().get(1));
+
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("pu: \npip: \non: \nm: ");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        m.ConnectPipe();
+    }
+
+    public static void StepOnCisternAndPicksUpPipe(){
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Cistern to = new Cistern();
+        Skeleton.AddObject(to, "to");
+        Pipe on = new Pipe(to);
+        Skeleton.AddObject(on, "on");
+        Mechanic m = new Mechanic();
+        Skeleton.AddObject(m, "m");
+        m.Move(on);
+        on.AcceptPlayer(m);
+
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("to: \non: \nm: ");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        m.Move(to);
+        m.PickupPipe();
+    }
+
+    public static void BreakPipeAndItAcceptsWater(){
+        Skeleton.ClearMap();
+        Skeleton.LogOff();
+        Pump p1 = new Pump();
+        Skeleton.AddObject(p1, "p1");
+        Pipe on = new Pipe(p1);
+        Skeleton.AddObject(on, "on");
+        on.Patch(); //kell-e?
+        on.AcceptWater(null);
+        
+        Saboteur s = new Saboteur();
+        Skeleton.AddObject(s, "s");
+        s.Move(on);
+        on.AcceptPlayer(s);
+        Pool pool = new Pool();
+        Skeleton.AddObject(pool, "pool");
+
+        System.out.println("\nThe test will run on the following objects:");
+        System.out.println("p1: \non: \ns: \npool: ");
+
+        System.out.print("\nThe next functions were called during the test:");
+        Skeleton.LogOn();
+        s.BreakPipe(pool);
+        on.AcceptWater(pool);
+    }
+        
+        
     //12
     public static void SecondStepOnPump(){
         Skeleton.ClearMap();
@@ -106,6 +202,8 @@ public class Tester {
         pu.Step();
         pu.Step();
     }
+
+
 
 
 

@@ -1,17 +1,24 @@
 package Model;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-
     protected Element on = null;
-
     protected PipeEnd holdingPipeEnd;
 
+   
 
+    public void SetHoldingPipeEnd(PipeEnd pE){
+        Skeleton.Start(this, "SetHoldingPipeEnd(" + Skeleton.GetObjectName(pE) + ")");
+        this.holdingPipeEnd = pE;
+        Skeleton.End();
+    }
+   
     public Player(){    }
+
     public void Move(Element to){
         Skeleton.Start(this, "Move(" + Skeleton.GetObjectName(to) + ")");
         if(on == null){
@@ -58,6 +65,8 @@ public class Player {
     public void DisconnectPipe(PipeEnd p){
         Skeleton.Start(this, "DisconnectPipe()");
         on.RemovePipe(p);
+
+      holdingPipeEnd = p;
         Skeleton.End();
     }
 }

@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * Felelőssége: ..
  */
 public abstract class Node extends Element implements ISteppable{
-
     protected PipeEnd[] pipeEnds = {null, null, null, null, null, null, null, null};
 
     @Override
@@ -18,6 +17,7 @@ public abstract class Node extends Element implements ISteppable{
         players.add(p);
 
         Skeleton.End();
+        Skeleton.PrintReturn("true");
         return true;
     }
 
@@ -27,10 +27,13 @@ public abstract class Node extends Element implements ISteppable{
     public List<Element> GetNeighbours() {
         Skeleton.Start(this, "GetNeighbours()");
         List<Element> neighbours = new ArrayList<>();
-        for (int i = 0; i < pipeEnds.length; i++)
-            neighbours.add(pipeEnds[i].GetOwnPipe());
-
+        for (int i = 0; i < pipeEnds.length; i++){
+            if (pipeEnds[i] != null) {
+                neighbours.add(pipeEnds[i].GetOwnPipe());
+            }
+        }
         Skeleton.End();
+        Skeleton.PrintReturn("neighbours");
         return neighbours;
     }
 
